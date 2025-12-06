@@ -1,0 +1,3508 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>منصة النشر الاجتماعي - المنصة العربية المتكاملة</title>
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Emoji Picker -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emoji-mart@latest/css/emoji-mart.css">
+  
+  <style>
+    /* ==== متغيرات الستايل ==== */
+    :root {
+      /* ألوان الوضع الفاتح */
+      --bg: #f0f2f5;
+      --card: #ffffff;
+      --primary: #1877f2;
+      --primary-dark: #166fe5;
+      --secondary: #42b72a;
+      --secondary-dark: #36a420;
+      --muted: #65676b;
+      --muted-light: #8a8d91;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+      --danger: #e41e3f;
+      --danger-light: #ffe6ea;
+      --success: #42b72a;
+      --success-light: #e7f3e7;
+      --warning: #f7b928;
+      --warning-light: #fff8e1;
+      --border: #dddfe2;
+      --text: #1c1e21;
+      --text-light: #65676b;
+      --hover-bg: #f2f2f2;
+      --sidebar-bg: #ffffff;
+      --topbar-bg: #ffffff;
+      --facebook-blue: #1877f2;
+      --verified-blue: #1877f2;
+    }
+
+    /* الوضع المظلم */
+    .dark-mode {
+      --bg: #18191a;
+      --card: #242526;
+      --primary: #2d88ff;
+      --primary-dark: #2d88ff;
+      --secondary: #31a24c;
+      --secondary-dark: #2e8b47;
+      --muted: #b0b3b8;
+      --muted-light: #8a8d91;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.2);
+      --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.3);
+      --danger: #e41e3f;
+      --danger-light: rgba(228, 30, 63, 0.2);
+      --success: #31a24c;
+      --success-light: rgba(49, 162, 76, 0.2);
+      --warning: #f7b928;
+      --warning-light: rgba(247, 185, 40, 0.2);
+      --border: #3e4042;
+      --text: #e4e6eb;
+      --text-light: #b0b3b8;
+      --hover-bg: #3a3b3c;
+      --sidebar-bg: #242526;
+      --topbar-bg: #242526;
+      --facebook-blue: #2d88ff;
+      --verified-blue: #2d88ff;
+    }
+
+    /* ==== إعادة ضبط ==== */
+    *{box-sizing:border-box; margin:0; padding:0;}
+    html,body{height:100%}
+    body{
+      font-family: "Cairo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height: 1.5;
+      transition: all 0.3s ease;
+    }
+
+    /* ==== الحاوية العامة ==== */
+    .app {
+      max-width:1200px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap: 20px;
+      align-items:start;
+      padding:20px;
+      min-height: 100vh;
+    }
+
+    /* ==== SIDEBAR ==== */
+    .sidebar{
+      background:var(--sidebar-bg);
+      border-radius:var(--radius);
+      padding:20px;
+      box-shadow:var(--shadow);
+      height:calc(100vh - 40px);
+      position:sticky;
+      top:20px;
+      overflow-y:auto;
+      border: 1px solid var(--border);
+    }
+
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-bottom:24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .brand .logo{
+      width:48px;height:48px;border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg, var(--facebook-blue), #00a2ff);
+      color:white;font-size:24px;
+      box-shadow:0 4px 12px rgba(24, 119, 242, 0.3);
+    }
+    .brand h1{font-size:20px;margin:0;line-height:1.2; color: var(--facebook-blue);}
+
+    .nav-list{list-style:none;padding:0;margin:16px 0}
+    .nav-list li{margin-bottom:6px}
+    .nav-btn{
+      display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:var(--radius-sm);
+      color:var(--muted);cursor:pointer;font-weight:600;border:none;background:transparent;width:100%;
+      text-align: right;
+      transition: all 0.2s ease;
+      font-size: 15px;
+    }
+    .nav-btn:hover{background:var(--hover-bg);color:var(--primary);}
+    .nav-btn.active{background:var(--hover-bg); color:var(--primary); border-right: 3px solid var(--facebook-blue);}
+
+    .user-mini{
+      display:flex;align-items:center;gap:12px;padding:14px;border-radius:var(--radius-sm);background:var(--hover-bg);
+      margin-top:16px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .user-mini:hover {background: var(--hover-bg); border-color: var(--primary);}
+    .user-circle{
+      width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg, var(--primary), var(--secondary));
+      color:white;display:flex;align-items:center;justify-content:center;font-weight:700; font-size: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .user-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .online-dot {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 12px;
+      height: 12px;
+      background: var(--success);
+      border-radius: 50%;
+      border: 2px solid var(--card);
+    }
+
+    /* ==== Main content ==== */
+    .main {
+      display:flex;flex-direction:column;gap:20px;
+    }
+
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:16px;background:var(--topbar-bg);padding:12px 20px;border-radius:var(--radius);box-shadow:var(--shadow);
+      border: 1px solid var(--border);
+      position: sticky;
+      top: 20px;
+      z-index: 100;
+    }
+
+    .topbar .search {
+      flex:1;display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:50px;background:var(--hover-bg);border:1px solid transparent;
+      transition: all 0.2s ease;
+    }
+    .topbar .search:focus-within {
+      border-color: var(--primary);
+      background: var(--card);
+    }
+    .search input{border:0;outline:none;background:transparent;width:100%;font-size:15px; color: var(--text);}
+
+    .actions{display:flex;gap:10px;align-items:center}
+
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:6px;border:none;cursor:pointer;font-weight:600;
+      transition: all 0.2s ease;
+      font-size: 14px;
+    }
+    .btn.primary{
+      background:var(--facebook-blue);color:white;
+      box-shadow: 0 2px 4px rgba(24, 119, 242, 0.2);
+    }
+    .btn.primary:hover {
+      background:var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(24, 119, 242, 0.3);
+    }
+    .btn.secondary{
+      background:var(--secondary);color:white;
+    }
+    .btn.secondary:hover {
+      background:var(--secondary-dark);
+    }
+    .btn.ghost{
+      background:transparent;border:1px solid var(--border);color:var(--muted);
+    }
+    .btn.ghost:hover {
+      background: var(--hover-bg);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .btn.danger {
+      background: var(--danger); color: white;
+    }
+    .btn.danger:hover {
+      background: #c21827;
+    }
+
+    /* ==== Grid content ==== */
+    .layout-grid{
+      display:grid;
+      grid-template-columns: 2fr 1fr;
+      gap:20px;
+    }
+
+    .card{
+      background:var(--card);padding:20px;border-radius:var(--radius);box-shadow:var(--shadow);
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* create post */
+    .create-post {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+    .create-post-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .create-post-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      overflow: hidden;
+    }
+    .create-post-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .create-post textarea{
+      width:100%;min-height:120px;border-radius:var(--radius-sm);border:1px solid var(--border);padding:16px;font-size:15px;resize:none;
+      font-family: inherit;
+      background: var(--card);
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .create-post textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.1);
+    }
+    .create-post-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .post-options {
+      display: flex;
+      gap: 10px;
+    }
+    .post-option-btn {
+      background: transparent;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+    .post-option-btn:hover {
+      background: var(--hover-bg);
+      color: var(--primary);
+    }
+
+    /* posts list */
+    .posts{display:flex;flex-direction:column;gap:20px;max-height:600px;overflow-y:auto;padding-right:8px}
+    .post{
+      border-radius:var(--radius);padding:20px;background:var(--card);
+      box-shadow:var(--shadow);
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .post:hover {
+      box-shadow: var(--shadow-lg);
+    }
+    .post.reported{border-left:4px solid var(--danger);}
+    .post .head{display:flex;gap:12px;align-items:center;margin-bottom:16px;}
+    .post .author{display:flex;gap:12px;align-items:center;flex:1;}
+    .avatar{
+      width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg, var(--primary), var(--secondary));
+      display:flex;align-items:center;justify-content:center;color:white;font-weight:700; font-size: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .verified-badge {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 20px;
+      height: 20px;
+      background: var(--verified-blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+      border: 2px solid var(--card);
+    }
+    .post-author-info {flex: 1;}
+    .post-author-name {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .post .time{color:var(--muted);font-size:13px; display: flex; align-items: center; gap: 6px;}
+    .post-privacy {
+      background: var(--hover-bg);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .post .content{
+      margin-bottom:16px;font-size:15px;line-height:1.6;color:var(--text);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .post-image {
+      width: 100%;
+      border-radius: var(--radius-sm);
+      margin-bottom: 16px;
+      max-height: 400px;
+      object-fit: cover;
+    }
+    .post .actions{
+      display:flex;justify-content:space-around;align-items:center;padding:12px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-top:16px;
+    }
+    .action-btn{
+      display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:6px;border:none;background:transparent;color:var(--muted);cursor:pointer;font-weight:600;font-size:14px;
+      transition: all 0.2s ease;
+      flex: 1;
+      justify-content: center;
+    }
+    .action-btn:hover{background:var(--hover-bg);}
+    .action-btn.liked{color:var(--facebook-blue);}
+    .action-btn.liked .action-icon{color:var(--facebook-blue);}
+    .action-btn.commented{color:var(--success);}
+    .action-btn.shared{color:var(--warning);}
+    .action-count {
+      margin-right: 4px;
+    }
+    .post-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* نظام التعليقات */
+    .comments-section {
+      margin-top: 16px;
+    }
+    .comments-list {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 16px;
+    }
+    .comment {
+      padding: 12px;
+      margin-bottom: 10px;
+      background: var(--hover-bg);
+      border-radius: var(--radius-sm);
+    }
+    .comment-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .comment-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      overflow: hidden;
+    }
+    .comment-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .comment-author {
+      flex: 1;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text);
+    }
+    .comment-time {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .comment-content {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+    .comment-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .comment-action {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 12px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+    .comment-action:hover {
+      background: var(--hover-bg);
+      color: var(--primary);
+    }
+    .comment-form {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .comment-input-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: var(--hover-bg);
+      border-radius: 20px;
+      padding: 8px 16px;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+    .comment-input-container:focus-within {
+      border-color: var(--primary);
+      background: var(--card);
+    }
+    .comment-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      padding: 4px 0;
+    }
+    .emoji-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 16px;
+      padding: 4px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+    .emoji-btn:hover {
+      color: var(--primary);
+      background: var(--hover-bg);
+    }
+    .comment-btn {
+      align-self: flex-start;
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+
+    /* right column (widgets) */
+    .widget{margin-bottom:20px}
+    .widget-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .stat{background:var(--hover-bg);padding:16px;border-radius:var(--radius-sm);text-align:center; border: 1px solid var(--border);}
+    .stat-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .small{font-size:12px;color:var(--muted)}
+    
+    /* admin area */
+    .admin-banner{
+      display:flex;align-items:center;gap:16px;padding:20px;border-radius:var(--radius);background:linear-gradient(90deg, rgba(24, 119, 242, 0.1), rgba(24, 119, 242, 0.05));border:1px solid rgba(24, 119, 242, 0.2)
+    }
+    
+    /* loading */
+    .loader {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid var(--border);
+      border-top: 3px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* notifications */
+    .notification {
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 8px;
+      background: var(--card);
+      border-left: 3px solid var(--primary);
+      box-shadow: var(--shadow);
+    }
+    .notification.unread {
+      background: rgba(24, 119, 242, 0.05);
+      border-left-color: var(--facebook-blue);
+    }
+    
+    /* theme toggle */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      background: var(--hover-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 14px;
+      transition: all 0.2s ease;
+      width: 100%;
+      margin-top: 12px;
+    }
+    .theme-toggle:hover {
+      background: var(--hover-bg);
+      border-color: var(--primary);
+    }
+    
+    /* profile edit modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal-content {
+      background: var(--card);
+      border-radius: var(--radius);
+      width: 90%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+    }
+    .modal-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+    .modal-close:hover {
+      color: var(--danger);
+      background: var(--hover-bg);
+    }
+    .modal-body {
+      padding: 20px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text);
+      font-size: 14px;
+    }
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.1);
+    }
+    .profile-image-upload {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .profile-image-preview {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 48px;
+      font-weight: bold;
+      overflow: hidden;
+      border: 4px solid var(--card);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .profile-image-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .image-upload-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+    .image-upload-btn:hover {
+      background: var(--primary-dark);
+    }
+    
+    /* responsiveness */
+    @media (max-width: 1024px){
+      .app{grid-template-columns:1fr; padding:16px}
+      .sidebar{height:auto;position:relative;top:0; margin-bottom: 16px;}
+      .layout-grid{grid-template-columns:1fr}
+    }
+    @media (max-width: 768px){
+      .topbar{flex-direction: column; align-items: stretch;}
+      .topbar .search{width: 100%;}
+      .actions{justify-content: space-between; width: 100%;}
+      .post .actions{flex-wrap: wrap;}
+      .action-btn{flex: 0 0 calc(50% - 8px); margin-bottom: 8px;}
+    }
+    
+    /* emoji picker */
+    .emoji-picker {
+      position: absolute;
+      bottom: 60px;
+      left: 20px;
+      z-index: 100;
+    }
+    
+    /* trending posts */
+    .trending-post {
+      padding: 12px;
+      margin-bottom: 8px;
+      background: var(--hover-bg);
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--primary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .trending-post:hover {
+      background: var(--hover-bg);
+      transform: translateX(-4px);
+    }
+    
+    /* story section */
+    .stories {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 16px 0;
+      margin-bottom: 20px;
+    }
+    .story {
+      flex: 0 0 auto;
+      width: 100px;
+      height: 180px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+    .story-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .story-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      padding: 12px;
+      color: white;
+    }
+    .story-author {
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .add-story {
+      background: var(--card);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+    .add-story-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+    
+    /* live indicator */
+    .live-indicator {
+      background: var(--danger);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+    
+    /* verified badge */
+    .verified {
+      color: var(--verified-blue);
+      font-size: 14px;
+    }
+    
+    /* phone number */
+    .phone-number {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Modal for profile editing -->
+  <div class="modal" id="profileModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">تعديل الملف الشخصي</h3>
+        <button class="modal-close" onclick="closeProfileModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="profile-image-upload">
+            <div class="profile-image-preview" id="profileImagePreview">
+              <span id="profileImageText">U</span>
+            </div>
+            <input type="file" id="profileImageInput" accept="image/*" style="display: none;" onchange="previewProfileImage(event)">
+            <button class="image-upload-btn" onclick="document.getElementById('profileImageInput').click()">
+              <i class="fas fa-camera"></i> تغيير الصورة
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">الاسم الكامل</label>
+          <input type="text" class="form-input" id="editFullName" placeholder="أدخل اسمك الكامل">
+        </div>
+        <div class="form-group">
+          <label class="form-label">رقم الهاتف</label>
+          <input type="tel" class="form-input" id="editPhoneNumber" placeholder="+20 123 456 7890">
+        </div>
+        <div class="form-group">
+          <label class="form-label">نبذة عنك</label>
+          <textarea class="form-input" id="editBio" placeholder="اكتب نبذة عن نفسك..." rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">الموقع</label>
+          <input type="text" class="form-input" id="editLocation" placeholder="المدينة، الدولة">
+        </div>
+        <button class="btn primary" style="width: 100%;" onclick="saveProfileChanges()">حفظ التغييرات</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for post image upload -->
+  <div class="modal" id="imageModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">إضافة صورة للمنشور</h3>
+        <button class="modal-close" onclick="closeImageModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="profile-image-upload">
+          <div class="profile-image-preview" id="postImagePreview" style="width: 200px; height: 200px; border-radius: var(--radius-sm);">
+            <span style="font-size: 24px;"><i class="fas fa-image"></i></span>
+          </div>
+          <input type="file" id="postImageInput" accept="image/*" style="display: none;" onchange="previewPostImage(event)">
+          <button class="image-upload-btn" onclick="document.getElementById('postImageInput').click()">
+            <i class="fas fa-upload"></i> اختر صورة
+          </button>
+        </div>
+        <div style="display: flex; gap: 12px; margin-top: 20px;">
+          <button class="btn primary" style="flex: 1;" onclick="confirmPostImage()">إضافة الصورة</button>
+          <button class="btn ghost" style="flex: 1;" onclick="removePostImage()">إلغاء</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="app" id="app">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">
+          <i class="fab fa-facebook"></i>
+        </div>
+        <div>
+          <h1>المنصة الاجتماعية</h1>
+          <div class="small">تواصل، شارك، انشر</div>
+        </div>
+      </div>
+
+      <div class="user-mini" id="userMini" onclick="openProfileModal()">
+        <div class="user-circle" id="userMiniAvatar">
+          <span id="userAvatarText">U</span>
+        </div>
+        <div>
+          <div id="userMiniName">زائر</div>
+          <div class="small" id="userMiniEmail">غير مسجل</div>
+        </div>
+      </div>
+
+      <nav style="margin-top: 20px;">
+        <ul class="nav-list">
+          <li><button class="nav-btn active" data-page="home" onclick="navigateTo('home', this)"><i class="fa-solid fa-house"></i> الرئيسية</button></li>
+          <li><button class="nav-btn" data-page="profile" onclick="navigateTo('profile', this)"><i class="fa-solid fa-user"></i> ملفي الشخصي</button></li>
+          <li><button class="nav-btn" data-page="friends" onclick="navigateTo('friends', this)"><i class="fa-solid fa-user-group"></i> الأصدقاء</button></li>
+          <li><button class="nav-btn" data-page="groups" onclick="navigateTo('groups', this)"><i class="fa-solid fa-users"></i> المجموعات</button></li>
+          <li><button class="nav-btn" data-page="admin" onclick="navigateTo('admin', this)"><i class="fa-solid fa-shield"></i> لوحة التحكم</button></li>
+          <li><button class="nav-btn" data-page="auth" onclick="navigateTo('auth', this)"><i class="fa-solid fa-right-to-bracket"></i> تسجيل الدخول</button></li>
+        </ul>
+      </nav>
+
+      <div style="margin-top: 20px;">
+        <button class="btn primary" id="newPostBtn" onclick="showCreate()" style="width: 100%;">
+          <i class="fa-solid fa-plus"></i> إنشاء منشور جديد
+        </button>
+        
+        <div class="theme-toggle" onclick="toggleDarkMode()">
+          <i class="fa-solid fa-moon" id="themeIcon"></i>
+          <span id="themeText">الوضع المظلم</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 24px;">
+        <div style="display:flex;justify-content:space-between;align-items:center; margin-bottom: 12px;">
+          <small class="small" style="font-weight: 600;">الإشعارات</small>
+          <button class="small" id="markAllReadBtn" onclick="markAllNotificationsAsRead()" style="display:none; color: var(--primary);">تعيين كمقروء</button>
+        </div>
+        <div id="notifPreview" style="margin-top:8px">
+          <div class="small">لا توجد إشعارات</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 24px;">
+        <small class="small" style="font-weight: 600;">المستخدمون النشطون</small>
+        <div id="onlineUsers" style="margin-top:12px">
+          <div class="small">جاري التحميل...</div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <!-- TOPBAR -->
+      <div class="topbar">
+        <div class="search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input placeholder="ابحث في المنشورات، الأصدقاء، المجموعات..." id="globalSearch" oninput="onSearchInput(event)">
+        </div>
+
+        <div class="actions">
+          <div class="small" id="statsSummary" style="display: flex; align-items: center; gap: 8px;">
+            <span class="live-indicator" id="liveIndicator">
+              <i class="fa-solid fa-circle"></i> LIVE
+            </span>
+            <span id="statsText">0 مستخدم • 0 منشور</span>
+          </div>
+          <button class="btn ghost" id="authBtn" onclick="navigateTo('auth', this)">
+            <i class="fa-solid fa-user-plus"></i> تسجيل
+          </button>
+          <button class="btn primary" id="logoutBtn" style="display:none" onclick="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i> خروج
+          </button>
+        </div>
+      </div>
+
+      <!-- Stories Section -->
+      <div class="card" id="storiesSection" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <h3 style="margin: 0;">القصص</h3>
+          <button class="btn ghost small" onclick="viewAllStories()">عرض الكل</button>
+        </div>
+        <div class="stories" id="storiesContainer">
+          <!-- Stories will be added here dynamically -->
+        </div>
+      </div>
+
+      <!-- PAGES -->
+      <section class="layout-grid">
+        <!-- Left column -->
+        <div>
+          <!-- HOME PAGE -->
+          <div id="page-home" class="page active">
+            <!-- Create Post Card -->
+            <div class="create-post">
+              <div class="create-post-header">
+                <div class="create-post-avatar" id="createPostAvatar">
+                  <span>U</span>
+                </div>
+                <div style="flex: 1;">
+                  <div style="font-weight: 600;" id="createPostName">مستخدم</div>
+                  <select id="postPrivacy" style="padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border); background: var(--card); color: var(--text); font-size: 13px;">
+                    <option value="public">🌍 عام</option>
+                    <option value="friends">👥 الأصدقاء فقط</option>
+                    <option value="private">🔒 خاص</option>
+                  </select>
+                </div>
+              </div>
+              <textarea id="postText" placeholder="ما الذي يدور في ذهنك، يا محمد؟" onfocus="showPostOptions()"></textarea>
+              <div id="postImageContainer" style="display: none; margin-bottom: 12px;">
+                <img id="selectedPostImage" class="post-image" src="" alt="صورة المنشور">
+                <button class="btn danger small" onclick="removeSelectedImage()" style="margin-top: 8px;">
+                  <i class="fa-solid fa-trash"></i> حذف الصورة
+                </button>
+              </div>
+              <div class="create-post-actions">
+                <div class="post-options" id="postOptions" style="display: none;">
+                  <button class="post-option-btn" onclick="openImageModal()">
+                    <i class="fa-solid fa-image" style="color: #45bd62;"></i> صورة
+                  </button>
+                  <button class="post-option-btn" onclick="addEmoji()">
+                    <i class="fa-regular fa-face-smile" style="color: #f7b928;"></i> إيموجي
+                  </button>
+                  <button class="post-option-btn" onclick="tagFriends()">
+                    <i class="fa-solid fa-user-tag" style="color: #1877f2;"></i> علامة
+                  </button>
+                  <button class="post-option-btn" onclick="addFeeling()">
+                    <i class="fa-regular fa-face-grin" style="color: #f5533d;"></i> شعور
+                  </button>
+                </div>
+                <button class="btn primary" onclick="createPost()" id="createPostBtn">نشر</button>
+              </div>
+            </div>
+
+            <!-- Posts list -->
+            <div style="margin-top: 20px;">
+              <div class="posts" id="postsList">
+                <div style="text-align:center;padding:60px 20px;color:var(--muted)">
+                  <div class="loader" style="margin:0 auto 20px"></div>
+                  <div>جاري تحميل المنشورات...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROFILE PAGE -->
+          <div id="page-profile" class="card page" style="display:none">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+              <h3 style="margin: 0;">الملف الشخصي</h3>
+              <button class="btn ghost" onclick="openProfileModal()">
+                <i class="fa-solid fa-edit"></i> تعديل الملف
+              </button>
+            </div>
+
+            <div style="display:flex;gap:24px;margin-top:12px;align-items:flex-start; flex-wrap: wrap;">
+              <div style="position: relative;">
+                <div class="avatar" style="width: 120px; height: 120px; font-size: 36px;" id="profileAvatar">
+                  <span id="profileAvatarText">U</span>
+                </div>
+                <div class="verified-badge" id="verifiedBadge" style="display: none;">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+              </div>
+              <div style="flex: 1;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                  <h2 id="profileName" style="margin: 0; font-size: 28px;">زائر</h2>
+                  <span class="verified" id="profileVerified" style="display: none;">
+                    <i class="fa-solid fa-check-circle"></i> موثق
+                  </span>
+                </div>
+                <div class="small" id="profileEmail" style="margin-bottom: 8px;">غير مسجل</div>
+                <div class="phone-number" id="profilePhone" style="display: none;">
+                  <i class="fa-solid fa-phone"></i> <span id="phoneNumberText"></span>
+                </div>
+                <div class="small" id="profileBio" style="margin-top: 8px; color: var(--text);"></div>
+                <div class="small" id="profileLocation" style="margin-top: 4px; color: var(--muted);"></div>
+                
+                <div style="margin-top: 20px; display: flex; gap: 12px; flex-wrap: wrap;">
+                  <div class="stat" style="flex: 1; min-width: 100px;">
+                    <div class="stat-number" id="myPostsCount">0</div>
+                    <div class="stat-label">منشورات</div>
+                  </div>
+                  <div class="stat" style="flex: 1; min-width: 100px;">
+                    <div class="stat-number" id="myFriendsCount">0</div>
+                    <div class="stat-label">أصدقاء</div>
+                  </div>
+                  <div class="stat" style="flex: 1; min-width: 100px;">
+                    <div class="stat-number" id="myLikesCount">0</div>
+                    <div class="stat-label">إعجابات</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+              <h4 style="margin-bottom: 16px;">منشوراتي</h4>
+              <div id="myPosts" style="margin-top: 8px;">
+                <div style="text-align:center;padding:40px 20px;color:var(--muted)">
+                  <i class="fa-regular fa-newspaper" style="font-size:32px;margin-bottom:12px;opacity:0.5"></i>
+                  <div>لم تقم بنشر أي منشورات بعد</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FRIENDS PAGE -->
+          <div id="page-friends" class="card page" style="display:none">
+            <h3>الأصدقاء</h3>
+            <div style="margin-top: 20px;">
+              <div id="friendsContainer">
+                <div style="text-align:center;padding:60px 20px;color:var(--muted)">
+                  <i class="fa-solid fa-user-group" style="font-size:48px;margin-bottom:16px;opacity:0.5"></i>
+                  <div>سجل دخول لترى أصدقاءك</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- GROUPS PAGE -->
+          <div id="page-groups" class="card page" style="display:none">
+            <h3>المجموعات</h3>
+            <div style="margin-top: 20px;">
+              <div id="groupsContainer">
+                <div style="text-align:center;padding:60px 20px;color:var(--muted)">
+                  <i class="fa-solid fa-users" style="font-size:48px;margin-bottom:16px;opacity:0.5"></i>
+                  <div>انضم إلى مجموعات لتشارك اهتماماتك</div>
+                  <button class="btn primary" style="margin-top: 20px;" onclick="createGroup()">
+                    <i class="fa-solid fa-plus"></i> إنشاء مجموعة جديدة
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ADMIN PAGE -->
+          <div id="page-admin" class="card page" style="display:none">
+            <h3>لوحة التحكم</h3>
+
+            <div class="admin-banner" style="margin-top:20px">
+              <div style="flex:1">
+                <strong id="adminName">مدير النظام</strong>
+                <div class="small" id="adminEmail">—</div>
+              </div>
+              <div style="display:flex;gap:12px; flex-wrap: wrap;">
+                <button class="btn ghost" onclick="loadAllUsers()">
+                  <i class="fa-solid fa-users"></i> المستخدمين
+                </button>
+                <button class="btn primary" onclick="loadReports()">
+                  <i class="fa-solid fa-flag"></i> التقارير
+                </button>
+                <button class="btn primary" onclick="verifyUsers()">
+                  <i class="fa-solid fa-check-circle"></i> التوثيق
+                </button>
+              </div>
+            </div>
+
+            <div class="stat-grid" style="margin-top: 24px;">
+              <div class="stat">
+                <div class="stat-number" id="adminUsersCount">0</div>
+                <div class="stat-label">المستخدمين</div>
+              </div>
+              <div class="stat">
+                <div class="stat-number" id="adminPostsCount">0</div>
+                <div class="stat-label">المنشورات</div>
+              </div>
+              <div class="stat">
+                <div class="stat-number" id="adminReportsCount">0</div>
+                <div class="stat-label">التقارير</div>
+              </div>
+            </div>
+
+            <div style="margin-top: 24px;">
+              <h4>إدارة المستخدمين</h4>
+              <div id="usersTable" style="margin-top:16px">
+                <div style="text-align:center;padding:40px 20px;color:var(--muted)">
+                  <i class="fa-solid fa-user-gear" style="font-size:32px;margin-bottom:12px;opacity:0.5"></i>
+                  <div>اضغط على "المستخدمين" لعرض القائمة</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- AUTH PAGE -->
+          <div id="page-auth" class="card page" style="display:none">
+            <h3>تسجيل الدخول / إنشاء حساب</h3>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:20px;">
+              <div>
+                <div style="margin-bottom:24px">
+                  <label class="form-label">البريد الإلكتروني</label>
+                  <input id="emailInput" type="email" class="form-input" placeholder="example@email.com">
+                </div>
+                <div style="margin-bottom:24px">
+                  <label class="form-label">كلمة المرور</label>
+                  <input id="passwordInput" type="password" class="form-input" placeholder="6 أحرف على الأقل">
+                </div>
+                <div style="display:flex;gap:12px;margin-top:8px">
+                  <button class="btn primary" onclick="login()" id="loginBtn" style="flex:1">تسجيل الدخول</button>
+                  <button class="btn secondary" onclick="signup()" id="signupBtn" style="flex:1">إنشاء حساب</button>
+                </div>
+                <div id="authMessage" style="margin-top:16px;padding:12px;border-radius:var(--radius-sm);background:var(--hover-bg);font-size:14px"></div>
+              </div>
+              
+              <div>
+                <div class="card" style="background:rgba(24, 119, 242, 0.1);border:1px solid rgba(24, 119, 242, 0.2)">
+                  <h4 style="color:var(--facebook-blue);margin-bottom:12px">حسابات تجريبية</h4>
+                  <div style="margin-bottom:16px">
+                    <div style="font-weight:600;margin-bottom:8px">👑 مدير النظام</div>
+                    <div class="small">البريد: <strong>fares@admin.com</strong></div>
+                    <div class="small">كلمة المرور: <strong>admin123</strong></div>
+                    <button class="btn ghost small" style="width:100%;margin-top:12px" onclick="fillAdminCredentials()">استخدام بيانات المدير</button>
+                  </div>
+                  <div style="border-top:1px solid var(--border);padding-top:16px">
+                    <div style="font-weight:600;margin-bottom:8px">👤 مستخدم عادي</div>
+                    <div class="small">البريد: <strong>user@example.com</strong></div>
+                    <div class="small">كلمة المرور: <strong>123456</strong></div>
+                    <button class="btn ghost small" style="width:100%;margin-top:12px" onclick="fillUserCredentials()">استخدام بيانات تجريبية</button>
+                  </div>
+                </div>
+                
+                <div class="card" style="margin-top:16px;background:var(--hover-bg)">
+                  <h4 style="margin-bottom:12px">مميزات المنصة</h4>
+                  <ul style="padding-right:20px;color:var(--text);font-size:14px;line-height:1.6">
+                    <li>نشر المنشورات مع الصور</li>
+                    <li>التواصل مع الأصدقاء</li>
+                    <li>إنشاء المجموعات</li>
+                    <li>التواصل المباشر (المحادثة)</li>
+                    <li>نظام التوثيق الأزرق</li>
+                    <li>الوضع المظلم</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Right column (widgets) -->
+        <aside>
+          <div class="card widget">
+            <div class="widget-title">
+              <i class="fa-solid fa-chart-line"></i>
+              إحصائيات المنصة
+            </div>
+            <div class="stat-grid">
+              <div class="stat">
+                <div class="stat-number" id="widgetUsers">0</div>
+                <div class="stat-label">مستخدمين</div>
+              </div>
+              <div class="stat">
+                <div class="stat-number" id="widgetPosts">0</div>
+                <div class="stat-label">منشورات</div>
+              </div>
+              <div class="stat">
+                <div class="stat-number" id="widgetComments">0</div>
+                <div class="stat-label">تعليقات</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card widget">
+            <div class="widget-title">
+              <i class="fa-solid fa-fire"></i>
+              المنشورات الرائجة
+            </div>
+            <div style="margin-top:12px" id="trendingPosts">
+              <div class="small">لا توجد منشورات رائجة</div>
+            </div>
+          </div>
+
+          <div class="card widget">
+            <div class="widget-title">
+              <i class="fa-solid fa-user-friends"></i>
+              أصدقاء مقترحون
+            </div>
+            <div style="margin-top:12px" id="suggestedFriends">
+              <div class="small">سجل دخول لترى المقترحات</div>
+            </div>
+          </div>
+
+          <div class="card widget">
+            <div class="widget-title">
+              <i class="fa-solid fa-calendar"></i>
+              الفعاليات القادمة
+            </div>
+            <div style="margin-top:12px" id="upcomingEvents">
+              <div class="small">لا توجد فعاليات قادمة</div>
+            </div>
+          </div>
+
+          <div class="card widget">
+            <div class="widget-title">
+              <i class="fa-solid fa-bullhorn"></i>
+              إعلانات
+            </div>
+            <div style="margin-top:12px">
+              <div class="small" style="padding:12px;background:var(--hover-bg);border-radius:var(--radius-sm);margin-bottom:8px">
+                <div style="font-weight:600;margin-bottom:4px">شارك في مسابقة أفضل صورة</div>
+                <div>آخر موعد: 15 ديسمبر</div>
+              </div>
+              <div class="small" style="padding:12px;background:var(--hover-bg);border-radius:var(--radius-sm)">
+                <div style="font-weight:600;margin-bottom:4px">خصم 50% على الإعلانات</div>
+                <div>عرض محدود لفترة</div>
+              </div>
+            </div>
+          </div>
+
+        </aside>
+      </section>
+    </main>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast" style="position:fixed;left:24px;bottom:24px;z-index:9999"></div>
+
+  <!-- Emoji Picker (hidden by default) -->
+  <div id="emojiPicker" class="emoji-picker" style="display:none"></div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    // ==== Firebase initialisation ====
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      signOut,
+      onAuthStateChanged,
+      updateProfile
+    } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      query,
+      orderBy,
+      onSnapshot,
+      serverTimestamp,
+      doc,
+      deleteDoc,
+      getDocs,
+      getDoc,
+      updateDoc,
+      increment,
+      setDoc,
+      where,
+      limit,
+      arrayUnion,
+      arrayRemove
+    } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCVLxgkqZhLmg9qHD1BtAb8FMm0HMQ8g5w",
+      authDomain: "flutter-799a0.firebaseapp.com",
+      projectId: "flutter-799a0",
+      storageBucket: "flutter-799a0.firebasestorage.app",
+      messagingSenderId: "687744843220",
+      appId: "1:687744843220:web:9c3300ca669ee56ba8ea41"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // ==== حالة التطبيق ====
+    const App = {
+      currentUser: null,
+      posts: [],
+      users: [],
+      comments: {},
+      liked: new Set(),
+      stories: [],
+      friends: [],
+      groups: [],
+      currentPage: 'home',
+      isDarkMode: localStorage.getItem('darkMode') === 'true',
+      notifications: [],
+      onlineUsers: new Set(),
+      userProfileImage: null,
+      postImage: null,
+      selectedImageFile: null
+    };
+
+    // ==== DOM Helpers ====
+    const $ = id => document.getElementById(id);
+
+    // ==== تهيئة التطبيق ====
+    function initApp() {
+      // تهيئة الوضع المظلم
+      if (App.isDarkMode) {
+        document.body.classList.add('dark-mode');
+        $('themeIcon').className = 'fa-solid fa-sun';
+        $('themeText').innerText = 'الوضع الفاتح';
+      }
+      
+      // تحميل الصفحة الأخيرة
+      const lastPage = localStorage.getItem('lastPage');
+      if (lastPage && ['home', 'profile', 'friends', 'groups', 'admin', 'auth'].includes(lastPage)) {
+        navigateTo(lastPage);
+      }
+      
+      // تحميل البيانات
+      loadStats();
+      loadTrendingPosts();
+      updateLiveIndicator();
+      
+      // تحديث الوقت كل دقيقة
+      setInterval(() => {
+        updateLiveIndicator();
+      }, 60000);
+      
+      // تحديث حالة الاتصال
+      setInterval(() => {
+        updateOnlineStatus();
+      }, 30000);
+    }
+
+    // ==== تحديث مؤشر البث المباشر ====
+    function updateLiveIndicator() {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const totalUsers = App.users.length;
+      
+      // تحديث النص
+      if ($('statsText')) {
+        $('statsText').innerText = `${totalUsers} مستخدم • ${App.posts.length} منشور`;
+      }
+      
+      // جعل المؤشر يتغير لون
+      const indicator = $('liveIndicator');
+      if (indicator) {
+        const colors = ['#e41e3f', '#f5533d', '#f7b928', '#45bd62', '#1877f2'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        indicator.style.background = randomColor;
+      }
+    }
+
+    // ==== تحديث حالة الاتصال ====
+    function updateOnlineStatus() {
+      if (App.currentUser) {
+        const userRef = doc(db, 'users', App.currentUser.uid);
+        updateDoc(userRef, {
+          lastSeen: new Date(),
+          isOnline: true
+        });
+      }
+    }
+
+    // ==== تبديل الوضع المظلم ====
+    function toggleDarkMode() {
+      App.isDarkMode = !App.isDarkMode;
+      document.body.classList.toggle('dark-mode', App.isDarkMode);
+      
+      if (App.isDarkMode) {
+        $('themeIcon').className = 'fa-solid fa-sun';
+        $('themeText').innerText = 'الوضع الفاتح';
+      } else {
+        $('themeIcon').className = 'fa-solid fa-moon';
+        $('themeText').innerText = 'الوضع المظلم';
+      }
+      
+      localStorage.setItem('darkMode', App.isDarkMode);
+      toast(`تم تفعيل الوضع ${App.isDarkMode ? 'المظلم' : 'الفاتح'}`, 'success');
+    }
+
+    // ==== التنقل بين الصفحات ====
+    function navigateTo(page, btnEl) {
+      App.currentPage = page;
+      
+      // إخفاء كل الصفحات
+      document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      
+      // تفعيل الزر المحدد
+      if (btnEl) btnEl.classList.add('active');
+      
+      // إظهار الصفحة المطلوبة
+      switch(page) {
+        case 'home': 
+          $('page-home').style.display = 'block';
+          loadPosts();
+          loadStories();
+          break;
+        case 'profile': 
+          $('page-profile').style.display = 'block';
+          loadUserProfile();
+          break;
+        case 'friends': 
+          $('page-friends').style.display = 'block';
+          loadFriends();
+          break;
+        case 'groups': 
+          $('page-groups').style.display = 'block';
+          loadGroups();
+          break;
+        case 'admin': 
+          $('page-admin').style.display = 'block';
+          checkAdminAccess();
+          break;
+        case 'auth': 
+          $('page-auth').style.display = 'block';
+          break;
+        default: 
+          $('page-home').style.display = 'block';
+      }
+      
+      // حفظ الصفحة الحالية
+      localStorage.setItem('lastPage', page);
+    }
+
+    // ==== Toast notifications ====
+    function toast(msg, type = 'info', duration = 3500) {
+      const el = document.createElement('div');
+      el.style.background = type === 'error' ? 'var(--danger-light)' : 
+                           type === 'success' ? 'var(--success-light)' : 
+                           type === 'warning' ? 'var(--warning-light)' : 'rgba(24, 119, 242, 0.1)';
+      el.style.color = 'var(--text)';
+      el.style.padding = '12px 16px';
+      el.style.borderRadius = '8px';
+      el.style.marginTop = '8px';
+      el.style.boxShadow = 'var(--shadow)';
+      el.style.borderLeft = `3px solid ${type === 'error' ? 'var(--danger)' : 
+                           type === 'success' ? 'var(--success)' : 
+                           type === 'warning' ? 'var(--warning)' : 'var(--facebook-blue)'}`;
+      el.style.maxWidth = '300px';
+      el.innerText = msg;
+      $('toast').appendChild(el);
+      setTimeout(() => el.remove(), duration);
+    }
+
+    // ==== تعبئة بيانات المدير ====
+    function fillAdminCredentials() {
+      $('emailInput').value = 'fares@admin.com';
+      $('passwordInput').value = 'admin123';
+      toast('تم تعبئة بيانات مدير النظام', 'info', 2000);
+    }
+
+    // ==== تعبئة بيانات مستخدم ====
+    function fillUserCredentials() {
+      $('emailInput').value = 'user@example.com';
+      $('passwordInput').value = '123456';
+      toast('تم تعبئة بيانات مستخدم تجريبي', 'info', 2000);
+    }
+
+    // ==== Auth listeners ====
+    onAuthStateChanged(auth, async (user) => {
+      App.currentUser = user;
+      
+      if (user) {
+        // تحديث واجهة المستخدم
+        updateUserUI(user);
+        
+        // تحميل الإعجابات المحفوظة
+        loadLikedPosts();
+        
+        // إنشاء/تحديث مستند المستخدم
+        await createUserDocument(user);
+        
+        // إذا كان المستخدم هو fares@admin.com، تعيين صلاحيات المدير
+        if (user.email === 'fares@admin.com') {
+          await setDoc(doc(db, 'users', user.uid), {
+            isAdmin: true,
+            isSiteOwner: true,
+            isVerified: true,
+            verifiedBadge: true
+          }, { merge: true });
+        }
+        
+        // تحميل الإشعارات
+        loadNotifications();
+        
+        // تحديث حالة الاتصال
+        updateOnlineStatus();
+        
+        // تحميل القصص
+        loadStories();
+        
+        // تحميل الأصدقاء المقترحين
+        loadSuggestedFriends();
+        
+        // إظهار قسم القصص
+        $('storiesSection').style.display = 'block';
+      } else {
+        // حالة تسجيل الخروج
+        resetUserUI();
+        $('storiesSection').style.display = 'none';
+      }
+      
+      // تحميل البيانات
+      loadStats();
+      loadTrendingPosts();
+    });
+
+    // ==== تحديث واجهة المستخدم ====
+    function updateUserUI(user) {
+      const displayName = user.displayName || user.email.split('@')[0];
+      const initial = (user.email || 'U').charAt(0).toUpperCase();
+      
+      // تحديث كل العناصر
+      $('userMiniName').innerText = displayName;
+      $('userMiniEmail').innerText = user.email;
+      $('userAvatarText').innerText = initial;
+      $('createPostName').innerText = displayName;
+      
+      // تحديث الصورة الرمزية إذا كانت موجودة
+      updateProfileImage();
+      
+      // أزرار الدخول والخروج
+      $('authBtn').style.display = 'none';
+      $('logoutBtn').style.display = 'inline-flex';
+      
+      // معلومات الأدمن
+      const isAdmin = user.email === 'fares@admin.com';
+      $('adminName').innerText = isAdmin ? 'فارس هاني (مدير النظام)' : displayName;
+      $('adminEmail').innerText = user.email;
+      
+      // تحميل صورة المستخدم لإنشاء المنشورات
+      loadUserProfileImage();
+    }
+
+    function resetUserUI() {
+      $('userMiniName').innerText = 'زائر';
+      $('userMiniEmail').innerText = 'غير مسجل';
+      $('userAvatarText').innerText = 'U';
+      $('authBtn').style.display = 'inline-flex';
+      $('logoutBtn').style.display = 'none';
+      $('markAllReadBtn').style.display = 'none';
+      $('createPostName').innerText = 'مستخدم';
+    }
+
+    // ==== تحديث صورة الملف الشخصي ====
+    function updateProfileImage() {
+      const user = App.currentUser;
+      if (!user) return;
+      
+      const userRef = doc(db, 'users', user.uid);
+      getDoc(userRef).then(doc => {
+        if (doc.exists()) {
+          const userData = doc.data();
+          
+          // إذا كان هناك صورة مخزنة
+          if (userData.profileImage) {
+            const avatarElements = [
+              $('userMiniAvatar'),
+              $('createPostAvatar'),
+              $('profileAvatar')
+            ];
+            
+            avatarElements.forEach(el => {
+              if (el) {
+                const img = document.createElement('img');
+                img.src = userData.profileImage;
+                img.alt = user.displayName || 'صورة المستخدم';
+                el.innerHTML = '';
+                el.appendChild(img);
+              }
+            });
+          }
+        }
+      });
+    }
+
+    // ==== تحميل صورة المستخدم ====
+    function loadUserProfileImage() {
+      const user = App.currentUser;
+      if (!user) return;
+      
+      const userRef = doc(db, 'users', user.uid);
+      getDoc(userRef).then(doc => {
+        if (doc.exists()) {
+          const userData = doc.data();
+          
+          // تحديث الصورة الرمزية
+          if (userData.profileImage) {
+            const avatarElements = document.querySelectorAll('.avatar, .user-circle, .create-post-avatar');
+            avatarElements.forEach(el => {
+              if (el && !el.querySelector('img')) {
+                const img = document.createElement('img');
+                img.src = userData.profileImage;
+                img.alt = user.displayName || 'صورة المستخدم';
+                el.innerHTML = '';
+                el.appendChild(img);
+              }
+            });
+          }
+          
+          // تحديث شارة التوثيق
+          if (userData.verifiedBadge) {
+            $('verifiedBadge').style.display = 'flex';
+            $('profileVerified').style.display = 'inline';
+          }
+          
+          // تحديث رقم الهاتف
+          if (userData.phoneNumber) {
+            $('profilePhone').style.display = 'flex';
+            $('phoneNumberText').innerText = userData.phoneNumber;
+          }
+          
+          // تحديث السيرة الذاتية
+          if (userData.bio) {
+            $('profileBio').innerText = userData.bio;
+          }
+          
+          // تحديث الموقع
+          if (userData.location) {
+            $('profileLocation').innerText = userData.location;
+          }
+        }
+      });
+    }
+
+    // ==== إنشاء مستند المستخدم ====
+    async function createUserDocument(user) {
+      const uRef = doc(db, 'users', user.uid);
+      const uDoc = await getDoc(uRef);
+      
+      if (!uDoc.exists()) {
+        const userData = {
+          email: user.email,
+          displayName: user.displayName || user.email.split('@')[0],
+          fullName: user.displayName || user.email.split('@')[0],
+          createdAt: new Date(),
+          isAdmin: user.email === 'fares@admin.com',
+          isVerified: user.email === 'fares@admin.com',
+          verifiedBadge: user.email === 'fares@admin.com',
+          isSiteOwner: user.email === 'fares@admin.com',
+          postCount: 0,
+          friendCount: 0,
+          likeCount: 0,
+          lastLogin: new Date(),
+          lastSeen: new Date(),
+          isOnline: true,
+          phoneNumber: '',
+          bio: '',
+          location: ''
+        };
+        
+        await setDoc(uRef, userData);
+        
+        // تحديث الملف الشخصي في Authentication
+        if (!user.displayName) {
+          await updateProfile(user, {
+            displayName: user.email.split('@')[0]
+          });
+        }
+      } else {
+        // تحديث آخر دخول وحالة الاتصال
+        await updateDoc(uRef, {
+          lastLogin: new Date(),
+          lastSeen: new Date(),
+          isOnline: true
+        });
+        
+        // تحديث شارة التوثيق للمدير
+        if (user.email === 'fares@admin.com') {
+          await updateDoc(uRef, {
+            isAdmin: true,
+            isVerified: true,
+            verifiedBadge: true
+          });
+        }
+      }
+    }
+
+    // ==== تسجيل الدخول ====
+    async function login() {
+      const email = $('emailInput').value.trim();
+      const password = $('passwordInput').value;
+      
+      if (!email || !password) { 
+        showAuthMessage('مطلوب البريد الإلكتروني وكلمة المرور', 'error');
+        return; 
+      }
+      
+      // عرض حالة التحميل
+      const loginBtn = $('loginBtn');
+      const originalText = loginBtn.innerHTML;
+      loginBtn.innerHTML = '<div class="loader" style="width:16px;height:16px;margin-right:8px"></div> جاري الدخول...';
+      loginBtn.disabled = true;
+      
+      try {
+        // دخول خاص للمدير fares@admin.com
+        if (email === 'fares@admin.com') {
+          // السماح بأي كلمة مرور للمدير
+          await signInWithEmailAndPassword(auth, email, password || 'admin123');
+        } else {
+          await signInWithEmailAndPassword(auth, email, password);
+        }
+        
+        showAuthMessage('تم تسجيل الدخول بنجاح', 'success');
+        toast(`مرحباً بعودتك!`, 'success');
+        navigateTo('home');
+        
+        // حفظ بيانات الدخول
+        localStorage.setItem('lastLogin', new Date().toISOString());
+      } catch(err) {
+        console.error('Login error:', err);
+        let message = 'حدث خطأ أثناء تسجيل الدخول';
+        if (err.code === 'auth/invalid-credential') message = 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
+        if (err.code === 'auth/user-not-found') message = 'المستخدم غير موجود';
+        if (err.code === 'auth/wrong-password') message = 'كلمة المرور غير صحيحة';
+        
+        showAuthMessage(message, 'error');
+        toast(message, 'error');
+      } finally {
+        // استعادة الزر
+        loginBtn.innerHTML = originalText;
+        loginBtn.disabled = false;
+      }
+    }
+
+    // ==== عرض رسائل المصادقة ====
+    function showAuthMessage(message, type) {
+      const el = $('authMessage');
+      el.innerText = message;
+      el.style.color = type === 'error' ? 'var(--danger)' : 'var(--success)';
+      el.style.background = type === 'error' ? 'var(--danger-light)' : 'var(--success-light)';
+      el.style.borderLeft = `3px solid ${type === 'error' ? 'var(--danger)' : 'var(--success)'}`;
+    }
+
+    // ==== إنشاء حساب ====
+    async function signup() {
+      const email = $('emailInput').value.trim();
+      const password = $('passwordInput').value;
+      
+      if (!email || !password) { 
+        showAuthMessage('مطلوب البريد الإلكتروني وكلمة المرور', 'error');
+        return; 
+      }
+      
+      if (password.length < 6) { 
+        showAuthMessage('كلمة المرور يجب أن تكون 6 أحرف على الأقل', 'error');
+        return; 
+      }
+      
+      if (!email.includes('@')) { 
+        showAuthMessage('البريد الإلكتروني غير صالح', 'error');
+        return; 
+      }
+      
+      // منع إنشاء حساب بإيميل المدير
+      if (email === 'fares@admin.com') {
+        showAuthMessage('هذا البريد الإلكتروني محجوز للإدارة', 'error');
+        return;
+      }
+      
+      // عرض حالة التحميل
+      const signupBtn = $('signupBtn');
+      const originalText = signupBtn.innerHTML;
+      signupBtn.innerHTML = '<div class="loader" style="width:16px;height:16px;margin-right:8px"></div> جاري الإنشاء...';
+      signupBtn.disabled = true;
+      
+      try {
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        
+        // إنشاء مستند المستخدم
+        await setDoc(doc(db, 'users', cred.user.uid), {
+          email,
+          displayName: email.split('@')[0],
+          fullName: email.split('@')[0],
+          createdAt: new Date(),
+          isAdmin: false,
+          isVerified: false,
+          verifiedBadge: false,
+          isSiteOwner: false,
+          postCount: 0,
+          friendCount: 0,
+          likeCount: 0,
+          lastLogin: new Date(),
+          lastSeen: new Date(),
+          isOnline: true,
+          phoneNumber: '',
+          bio: '',
+          location: ''
+        });
+        
+        showAuthMessage('تم إنشاء الحساب بنجاح!', 'success');
+        toast('مرحباً بك في منصتنا!', 'success');
+        navigateTo('home');
+        
+        // حفظ بيانات التسجيل
+        localStorage.setItem('lastSignup', new Date().toISOString());
+      } catch(err) {
+        console.error('Signup error:', err);
+        let message = 'حدث خطأ أثناء إنشاء الحساب';
+        if (err.code === 'auth/email-already-in-use') message = 'هذا البريد الإلكتروني مستخدم بالفعل';
+        if (err.code === 'auth/invalid-email') message = 'البريد الإلكتروني غير صالح';
+        if (err.code === 'auth/weak-password') message = 'كلمة المرور ضعيفة جداً';
+        
+        showAuthMessage(message, 'error');
+        toast(message, 'error');
+      } finally {
+        // استعادة الزر
+        signupBtn.innerHTML = originalText;
+        signupBtn.disabled = false;
+      }
+    }
+
+    // ==== تسجيل الخروج ====
+    async function logout() {
+      if (confirm('هل تريد تسجيل الخروج؟')) {
+        try {
+          // تحديث حالة الاتصال
+          if (App.currentUser) {
+            const uRef = doc(db, 'users', App.currentUser.uid);
+            await updateDoc(uRef, {
+              isOnline: false,
+              lastSeen: new Date()
+            });
+          }
+          
+          await signOut(auth);
+          toast('تم تسجيل الخروج بنجاح', 'success');
+          navigateTo('auth');
+        } catch(err) {
+          console.error('Logout error:', err);
+          toast('حدث خطأ أثناء تسجيل الخروج', 'error');
+        }
+      }
+    }
+
+    // ==== تحميل المنشورات ====
+    let postsUnsub = null;
+    let commentsUnsub = {};
+
+    function loadPosts() {
+      try {
+        if (postsUnsub) postsUnsub();
+      } catch(e) {}
+      
+      const q = query(collection(db, 'posts'), orderBy('timestamp', 'desc'), limit(50));
+      
+      // عرض حالة التحميل
+      $('postsList').innerHTML = `
+        <div style="text-align:center;padding:60px 20px;color:var(--muted)">
+          <div class="loader" style="margin:0 auto 20px"></div>
+          <div>جاري تحميل المنشورات...</div>
+        </div>
+      `;
+      
+      postsUnsub = onSnapshot(q, async (snap) => {
+        App.posts = [];
+        const list = $('postsList'); 
+        list.innerHTML = '';
+        
+        if (snap.empty) {
+          list.innerHTML = `
+            <div style="text-align:center;padding:60px 20px;color:var(--muted)">
+              <i class="fa-regular fa-newspaper" style="font-size:48px;margin-bottom:16px;opacity:0.5"></i>
+              <div>لا توجد منشورات بعد — كن أول من ينشر!</div>
+            </div>
+          `;
+        } else {
+          for (const d of snap.docs) {
+            const post = { id: d.id, ...d.data() };
+            App.posts.push(post);
+            
+            // تحميل التعليقات لهذا المنشور
+            await loadCommentsForPost(post.id);
+            
+            list.appendChild(renderPostCard(post));
+          }
+        }
+        
+        updateWidgets();
+        loadTrendingPosts();
+      }, (err) => {
+        console.error('Error loading posts:', err);
+        $('postsList').innerHTML = `
+          <div style="text-align:center;padding:60px 20px;color:var(--muted)">
+            <i class="fa-solid fa-exclamation-triangle" style="font-size:48px;margin-bottom:16px;color:var(--warning)"></i>
+            <div>حدث خطأ في تحميل المنشورات</div>
+            <button class="btn ghost" style="margin-top:20px" onclick="loadPosts()">إعادة المحاولة</button>
+          </div>
+        `;
+      });
+    }
+
+    // ==== تحميل التعليقات لمنشور ====
+    async function loadCommentsForPost(postId) {
+      try {
+        // إلغاء الاشتراك السابق إن وجد
+        if (commentsUnsub[postId]) {
+          commentsUnsub[postId]();
+        }
+        
+        const q = query(
+          collection(db, 'comments'),
+          where('postId', '==', postId),
+          orderBy('timestamp', 'asc'),
+          limit(50)
+        );
+        
+        commentsUnsub[postId] = onSnapshot(q, (snap) => {
+          App.comments[postId] = [];
+          snap.forEach(d => {
+            App.comments[postId].push({ id: d.id, ...d.data() });
+          });
+          
+          // تحديث عرض التعليقات إذا كان المنشور مرئياً
+          const postEl = $(`post-${postId}`);
+          if (postEl) {
+            const commentsSection = postEl.querySelector('.comments-section');
+            if (commentsSection) {
+              const commentsList = commentsSection.querySelector('.comments-list');
+              if (commentsList) {
+                commentsList.innerHTML = renderCommentsList(postId);
+              }
+            }
+          }
+        });
+      } catch(err) {
+        console.error('Error loading comments:', err);
+      }
+    }
+
+    // ==== عرض بطاقة المنشور ====
+    function renderPostCard(post) {
+      const div = document.createElement('div');
+      div.className = 'post';
+      if (post.isReported) div.classList.add('reported');
+      div.id = `post-${post.id}`;
+      
+      const time = post.timestamp && post.timestamp.toDate ? 
+        formatTimeAgo(post.timestamp.toDate()) : 
+        (post.timestamp ? formatTimeAgo(new Date(post.timestamp)) : 'الآن');
+      
+      const authorInitial = (post.author || 'U').charAt(0).toUpperCase();
+      const isLiked = App.liked.has(`post_${post.id}`);
+      const commentsCount = App.comments[post.id] ? App.comments[post.id].length : 0;
+      
+      // الحصول على بيانات المستخدم للمنشور
+      const authorName = post.authorName || post.author || 'مستخدم';
+      const isVerified = post.authorVerified || post.author === 'fares@admin.com';
+      
+      div.innerHTML = `
+        <div class="head">
+          <div class="author">
+            <div class="avatar">
+              <span>${authorInitial}</span>
+              ${isVerified ? '<div class="verified-badge"><i class="fa-solid fa-check"></i></div>' : ''}
+            </div>
+            <div class="post-author-info">
+              <div class="post-author-name">
+                ${authorName}
+                ${isVerified ? '<span class="verified"><i class="fa-solid fa-check-circle"></i></span>' : ''}
+              </div>
+              <div class="time">
+                ${time}
+                <span class="post-privacy">
+                  ${post.privacy === 'friends' ? '👥 الأصدقاء فقط' : 
+                    post.privacy === 'private' ? '🔒 خاص' : '🌍 عام'}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div>
+            ${App.currentUser && (App.currentUser.uid === post.authorId || App.currentUser.email === 'fares@admin.com') ? `
+              <button class="btn ghost small" onclick="deletePost('${post.id}')" title="حذف">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            ` : ''}
+          </div>
+        </div>
+        
+        <div class="content">${formatPostContent(post.content || '')}</div>
+        
+        ${post.imageUrl ? `
+          <img src="${post.imageUrl}" class="post-image" alt="صورة المنشور">
+        ` : ''}
+        
+        <div class="post-stats">
+          <div>
+            <span>${post.likes || 0} إعجاب • ${commentsCount} تعليق • ${post.shares || 0} مشاركة</span>
+          </div>
+        </div>
+        
+        <div class="actions">
+          <button class="action-btn ${isLiked ? 'liked' : ''}" onclick="toggleLike('${post.id}')">
+            <i class="fa-solid fa-thumbs-up action-icon"></i>
+            <span class="action-count">${post.likes || 0}</span>
+            <span>إعجاب</span>
+          </button>
+          <button class="action-btn commented" onclick="toggleComments('${post.id}')">
+            <i class="fa-solid fa-comment action-icon"></i>
+            <span class="action-count">${commentsCount}</span>
+            <span>تعليق</span>
+          </button>
+          <button class="action-btn shared" onclick="sharePost('${post.id}')">
+            <i class="fa-solid fa-share action-icon"></i>
+            <span class="action-count">${post.shares || 0}</span>
+            <span>مشاركة</span>
+          </button>
+        </div>
+        
+        <!-- قسم التعليقات -->
+        <div class="comments-section" id="comments-${post.id}-section" style="display: none;">
+          <div class="comments-list" id="comments-${post.id}-list">
+            ${renderCommentsList(post.id)}
+          </div>
+          ${App.currentUser ? `
+            <div class="comment-form">
+              <div class="comment-input-container">
+                <input type="text" class="comment-input" id="comment-${post.id}" placeholder="اكتب تعليقًا...">
+                <button class="emoji-btn" onclick="showEmojiPicker('comment-${post.id}')">
+                  <i class="fa-regular fa-face-smile"></i>
+                </button>
+              </div>
+              <button class="btn primary comment-btn" onclick="addComment('${post.id}')">إرسال</button>
+            </div>
+          ` : `
+            <div style="text-align:center;padding:16px;color:var(--muted)">
+              <i class="fa-solid fa-lock"></i> سجل دخول لإضافة تعليق
+            </div>
+          `}
+        </div>
+      `;
+      
+      // تحميل صورة المستخدم إذا كانت موجودة
+      loadPostAuthorImage(post.authorId, div.querySelector('.avatar'));
+      
+      return div;
+    }
+
+    // ==== تحميل صورة كاتب المنشور ====
+    function loadPostAuthorImage(authorId, avatarElement) {
+      if (!authorId || !avatarElement) return;
+      
+      const userRef = doc(db, 'users', authorId);
+      getDoc(userRef).then(doc => {
+        if (doc.exists()) {
+          const userData = doc.data();
+          if (userData.profileImage && avatarElement) {
+            const img = document.createElement('img');
+            img.src = userData.profileImage;
+            img.alt = userData.displayName || 'صورة المستخدم';
+            avatarElement.innerHTML = '';
+            avatarElement.appendChild(img);
+            
+            // إضافة شارة التوثيق إذا كانت موجودة
+            if (userData.verifiedBadge) {
+              const badge = document.createElement('div');
+              badge.className = 'verified-badge';
+              badge.innerHTML = '<i class="fa-solid fa-check"></i>';
+              avatarElement.appendChild(badge);
+            }
+          }
+        }
+      });
+    }
+
+    // ==== تنسيق الوقت ====
+    function formatTimeAgo(date) {
+      const now = new Date();
+      const diff = now - date;
+      
+      const minutes = Math.floor(diff / 60000);
+      const hours = Math.floor(minutes / 60);
+      const days = Math.floor(hours / 24);
+      
+      if (days > 0) return `منذ ${days} يوم`;
+      if (hours > 0) return `منذ ${hours} ساعة`;
+      if (minutes > 0) return `منذ ${minutes} دقيقة`;
+      return 'الآن';
+    }
+
+    // ==== تنسيق محتوى المنشور ====
+    function formatPostContent(text) {
+      if (!text) return '';
+      
+      // الهروب من HTML لمنع XSS
+      text = escapeHTML(text);
+      
+      // تحويل الروابط
+      text = text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: var(--primary);">$1</a>');
+      
+      // تحويل الهاشتاجات
+      text = text.replace(/#(\w+)/g, '<span style="color: var(--primary); font-weight: 600;">#$1</span>');
+      
+      // تحويل علامة @
+      text = text.replace(/@(\w+)/g, '<span style="color: var(--primary); font-weight: 600;">@$1</span>');
+      
+      // تحويل الأسطر الجديدة
+      text = text.replace(/\n/g, '<br>');
+      
+      return text;
+    }
+
+    // ==== عرض قائمة التعليقات ====
+    function renderCommentsList(postId) {
+      const comments = App.comments[postId] || [];
+      
+      if (comments.length === 0) {
+        return '<div style="text-align:center;padding:20px;color:var(--muted)">لا توجد تعليقات بعد</div>';
+      }
+      
+      let html = '';
+      comments.forEach(comment => {
+        const time = comment.timestamp && comment.timestamp.toDate ? 
+          formatTimeAgo(comment.timestamp.toDate()) : 'الآن';
+        
+        const isAdmin = comment.author === 'fares@admin.com';
+        const canDeleteComment = App.currentUser && (
+          App.currentUser.uid === comment.authorId || 
+          App.currentUser.email === 'fares@admin.com'
+        );
+        
+        html += `
+          <div class="comment" id="comment-${comment.id}">
+            <div class="comment-header">
+              <div class="comment-avatar">
+                <span>${comment.author?.charAt(0) || 'U'}</span>
+              </div>
+              <div class="comment-author">${comment.author || 'مستخدم'}</div>
+              <div class="comment-time">${time}</div>
+            </div>
+            <div class="comment-content">${escapeHTML(comment.content || '')}</div>
+            ${canDeleteComment ? `
+              <div class="comment-actions">
+                <button class="comment-action" onclick="deleteComment('${comment.id}', '${postId}')">حذف</button>
+                ${!isAdmin ? `<button class="comment-action" onclick="reportComment('${comment.id}', '${postId}')">إبلاغ</button>` : ''}
+              </div>
+            ` : ''}
+          </div>
+        `;
+      });
+      
+      return html;
+    }
+
+    // ==== إضافة تعليق ====
+    async function addComment(postId) {
+      if (!App.currentUser) { 
+        toast('يجب تسجيل الدخول لإضافة تعليق', 'error'); 
+        navigateTo('auth'); 
+        return; 
+      }
+      
+      const commentInput = $(`comment-${postId}`);
+      const content = commentInput.value.trim();
+      
+      if (!content) { 
+        toast('اكتب تعليقاً', 'error'); 
+        commentInput.focus();
+        return; 
+      }
+      
+      try {
+        // الحصول على معلومات المنشور
+        const postRef = doc(db, 'posts', postId);
+        const postDoc = await getDoc(postRef);
+        
+        if (!postDoc.exists()) {
+          toast('المنشور غير موجود', 'error');
+          return;
+        }
+        
+        const postData = postDoc.data();
+        
+        // إضافة التعليق
+        await addDoc(collection(db, 'comments'), {
+          postId,
+          author: App.currentUser.email,
+          authorId: App.currentUser.uid,
+          authorName: App.currentUser.displayName || App.currentUser.email.split('@')[0],
+          content,
+          timestamp: serverTimestamp(),
+          reports: 0
+        });
+        
+        // تحديث عدد التعليقات في المنشور
+        await updateDoc(postRef, { 
+          comments: increment(1)
+        });
+        
+        // تحديث عدد تعليقات المستخدم
+        const uRef = doc(db, 'users', App.currentUser.uid);
+        await updateDoc(uRef, { 
+          lastActivity: new Date()
+        });
+        
+        // مسح حقل التعليق
+        commentInput.value = '';
+        toast('تم إضافة تعليقك', 'success');
+        
+        // إظهار قسم التعليقات إذا كان مخفياً
+        const commentsSection = $(`comments-${postId}-section`);
+        if (commentsSection && commentsSection.style.display === 'none') {
+          commentsSection.style.display = 'block';
+        }
+      } catch(err) {
+        console.error('Error adding comment:', err);
+        toast('حدث خطأ أثناء إضافة التعليق', 'error');
+      }
+    }
+
+    // ==== حذف تعليق ====
+    async function deleteComment(commentId, postId) {
+      if (!confirm('هل تريد حذف هذا التعليق؟')) return;
+      
+      try {
+        const commentRef = doc(db, 'comments', commentId);
+        await deleteDoc(commentRef);
+        
+        // تحديث عدد التعليقات في المنشور
+        const postRef = doc(db, 'posts', postId);
+        await updateDoc(postRef, { 
+          comments: increment(-1)
+        });
+        
+        toast('تم حذف التعليق', 'success');
+      } catch(err) {
+        console.error('Error deleting comment:', err);
+        toast('حدث خطأ أثناء حذف التعليق', 'error');
+      }
+    }
+
+    // ==== الإبلاغ عن تعليق ====
+    async function reportComment(commentId, postId) {
+      if (!App.currentUser) { 
+        toast('سجل دخول لتبلغ عن تعليق', 'error'); 
+        navigateTo('auth'); 
+        return; 
+      }
+      
+      const reason = prompt('ما سبب الإبلاغ عن هذا التعليق؟', 'محتوى غير لائق');
+      if (!reason) return;
+      
+      try {
+        await addDoc(collection(db, 'commentReports'), {
+          commentId,
+          postId,
+          reporterId: App.currentUser.uid,
+          reporterEmail: App.currentUser.email,
+          reason,
+          timestamp: new Date(),
+          status: 'pending'
+        });
+        
+        // زيادة عداد التقارير في التعليق
+        const commentRef = doc(db, 'comments', commentId);
+        await updateDoc(commentRef, { 
+          reports: increment(1)
+        });
+        
+        toast('تم إرسال التقرير بنجاح', 'success');
+      } catch(err) { 
+        console.error('Error reporting comment:', err);
+        toast('حدث خطأ أثناء الإبلاغ', 'error'); 
+      }
+    }
+
+    // ==== تبديل عرض التعليقات ====
+    function toggleComments(postId) {
+      const commentsSection = $(`comments-${postId}-section`);
+      if (commentsSection.style.display === 'none') {
+        commentsSection.style.display = 'block';
+        // تحميل التعليقات إذا لم تكن محملة
+        if (!App.comments[postId]) {
+          loadCommentsForPost(postId);
+        }
+      } else {
+        commentsSection.style.display = 'none';
+      }
+    }
+
+    // ==== مشاركة منشور ====
+    async function sharePost(postId) {
+      if (!App.currentUser) { 
+        toast('سجل دخول لمشاركة المنشور', 'error'); 
+        navigateTo('auth'); 
+        return; 
+      }
+      
+      try {
+        const postRef = doc(db, 'posts', postId);
+        await updateDoc(postRef, { 
+          shares: increment(1)
+        });
+        
+        toast('تمت مشاركة المنشور', 'success');
+      } catch(err) {
+        console.error('Error sharing post:', err);
+        toast('حدث خطأ أثناء المشاركة', 'error');
+      }
+    }
+
+    // ==== إظهار خيارات المنشور ====
+    function showPostOptions() {
+      $('postOptions').style.display = 'flex';
+    }
+
+    // ==== فتح مودال الصورة ====
+    function openImageModal() {
+      $('imageModal').classList.add('active');
+    }
+
+    // ==== إغلاق مودال الصورة ====
+    function closeImageModal() {
+      $('imageModal').classList.remove('active');
+    }
+
+    // ==== معاينة صورة المنشور ====
+    function previewPostImage(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      
+      // تحقق من نوع الملف
+      if (!file.type.match('image.*')) {
+        toast('الرجاء اختيار ملف صورة', 'error');
+        return;
+      }
+      
+      // تحقق من حجم الملف (5MB كحد أقصى)
+      if (file.size > 5 * 1024 * 1024) {
+        toast('حجم الصورة كبير جداً (الحد الأقصى 5MB)', 'error');
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const preview = $('postImagePreview');
+        preview.innerHTML = `<img src="${e.target.result}" alt="معاينة الصورة">`;
+        App.selectedImageFile = file;
+        App.postImage = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // ==== تأكيد إضافة الصورة ====
+    function confirmPostImage() {
+      if (App.postImage) {
+        $('postImageContainer').style.display = 'block';
+        $('selectedPostImage').src = App.postImage;
+        closeImageModal();
+        toast('تم إضافة الصورة للمنشور', 'success');
+      }
+    }
+
+    // ==== إزالة الصورة المحددة ====
+    function removeSelectedImage() {
+      $('postImageContainer').style.display = 'none';
+      App.selectedImageFile = null;
+      App.postImage = null;
+      toast('تم حذف الصورة', 'info');
+    }
+
+    // ==== إضافة إيموجي ====
+    function addEmoji() {
+      toast('ميزة الإيموجي قيد التطوير', 'info');
+    }
+
+    // ==== وضع علامة على الأصدقاء ====
+    function tagFriends() {
+      toast('ميزة وضع العلامات قيد التطوير', 'info');
+    }
+
+    // ==== إضافة شعور ====
+    function addFeeling() {
+      toast('ميزة المشاعر قيد التطوير', 'info');
+    }
+
+    // ==== إنشاء منشور جديد ====
+    async function createPost() {
+      if (!App.currentUser) { 
+        toast('يجب تسجيل الدخول للنشر', 'error'); 
+        navigateTo('auth'); 
+        return; 
+      }
+      
+      const content = $('postText').value.trim();
+      const privacy = $('postPrivacy').value;
+      
+      if (!content && !App.postImage) { 
+        toast('اكتب محتوى أو أضف صورة للنشر', 'error'); 
+        $('postText').focus();
+        return; 
+      }
+      
+      if (content.length > 1000) { 
+        toast('الحد الأقصى 1000 حرف', 'error'); 
+        return; 
+      }
+      
+      // عرض حالة التحميل
+      const createBtn = $('createPostBtn');
+      const originalText = createBtn.innerHTML;
+      createBtn.innerHTML = '<div class="loader" style="width:16px;height:16px;margin-right:8px"></div> جاري النشر...';
+      createBtn.disabled = true;
+      
+      try {
+        const postData = {
+          author: App.currentUser.email,
+          authorId: App.currentUser.uid,
+          authorName: App.currentUser.displayName || App.currentUser.email.split('@')[0],
+          authorVerified: App.currentUser.email === 'fares@admin.com',
+          content,
+          privacy,
+          timestamp: serverTimestamp(),
+          likes: 0,
+          comments: 0,
+          shares: 0,
+          reports: 0,
+          isReported: false
+        };
+        
+        // إضافة صورة إذا كانت موجودة
+        if (App.postImage) {
+          // في تطبيق حقيقي، هنا ستقوم برفع الصورة إلى Firebase Storage
+          // لكن لأغراض العرض، سنستخدم الصورة كـ base64
+          postData.imageUrl = App.postImage;
+          postData.hasImage = true;
+        }
+        
+        await addDoc(collection(db, 'posts'), postData);
+        
+        // تحديث عدد منشورات المستخدم
+        const uRef = doc(db, 'users', App.currentUser.uid);
+        await updateDoc(uRef, { 
+          postCount: increment(1),
+          lastActivity: new Date()
+        });
+        
+        // مسح الحقول
+        $('postText').value = '';
+        $('postImageContainer').style.display = 'none';
+        App.selectedImageFile = null;
+        App.postImage = null;
+        
+        toast('تم نشر منشورك بنجاح', 'success');
+        
+        // تمرير إلى أعلى القائمة
+        $('postsList').scrollTop = 0;
+      } catch(err) {
+        console.error('Error creating post:', err);
+        toast('حدث خطأ أثناء النشر', 'error');
+      } finally {
+        // استعادة الزر
+        createBtn.innerHTML = originalText;
+        createBtn.disabled = false;
+      }
+    }
+
+    // ==== الإعجاب بالمنشور ====
+    async function toggleLike(postId) {
+      if (!App.currentUser) { 
+        toast('سجل دخول لتتفاعل مع المنشور', 'error'); 
+        navigateTo('auth'); 
+        return; 
+      }
+      
+      const postRef = doc(db, 'posts', postId);
+      const likeKey = `post_${postId}`;
+      
+      try {
+        const postDoc = await getDoc(postRef);
+        if (!postDoc.exists()) return;
+        
+        const postData = postDoc.data();
+        const currentLikes = postData.likes || 0;
+        
+        if (App.liked.has(likeKey)) {
+          // إزالة الإعجاب
+          await updateDoc(postRef, { likes: currentLikes - 1 });
+          App.liked.delete(likeKey);
+          localStorage.removeItem(likeKey);
+        } else {
+          // إضافة إعجاب
+          await updateDoc(postRef, { likes: currentLikes + 1 });
+          App.liked.add(likeKey);
+          localStorage.setItem(likeKey, 'true');
+        }
+        
+        // تحديث عدد الإعجابات في الواجهة
+        const postEl = $(`post-${postId}`);
+        if (postEl) {
+          const likeCountEl = postEl.querySelector('.action-count');
+          const likeBtn = postEl.querySelector('.action-btn');
+          
+          if (likeCountEl) {
+            const newCount = App.liked.has(likeKey) ? currentLikes + 1 : currentLikes - 1;
+            likeCountEl.innerText = newCount;
+          }
+          
+          if (likeBtn) {
+            if (App.liked.has(likeKey)) {
+              likeBtn.classList.add('liked');
+            } else {
+              likeBtn.classList.remove('liked');
+            }
+          }
+        }
+        
+        // تحديث إحصائيات المستخدم
+        const uRef = doc(db, 'users', App.currentUser.uid);
+        await updateDoc(uRef, { 
+          lastActivity: new Date()
+        });
+      } catch(err) { 
+        console.error('Error toggling like:', err);
+        toast('حدث خطأ أثناء التفاعل', 'error'); 
+      }
+    }
+
+    // ==== تحميل الإعجابات المحفوظة ====
+    function loadLikedPosts() {
+      App.liked.clear();
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith('post_') && localStorage.getItem(key) === 'true') {
+          App.liked.add(key);
+        }
+      }
+    }
+
+    // ==== حذف منشور ====
+    async function deletePost(postId) {
+      if (!confirm('هل أنت متأكد من حذف هذا المنشور؟ سيتم حذف جميع التعليقات المرتبطة به.')) return;
+      
+      try {
+        // حذف جميع تعليقات المنشور أولاً
+        const commentsQuery = query(collection(db, 'comments'), where('postId', '==', postId));
+        const commentsSnap = await getDocs(commentsQuery);
+        
+        const deletePromises = commentsSnap.docs.map(doc => deleteDoc(doc.ref));
+        await Promise.all(deletePromises);
+        
+        // حذف المنشور
+        await deleteDoc(doc(db, 'posts', postId));
+        
+        toast('تم حذف المنشور وجميع تعليقاته', 'success');
+        
+        // إزالة العنصر من الواجهة
+        const postEl = $(`post-${postId}`);
+        if (postEl) {
+          postEl.style.opacity = '0';
+          setTimeout(() => {
+            if (postEl) postEl.remove();
+          }, 300);
+        }
+      } catch(err) { 
+        console.error('Error deleting post:', err);
+        toast('حدث خطأ أثناء الحذف', 'error'); 
+      }
+    }
+
+    // ==== تحميل الإحصائيات ====
+    async function loadStats() {
+      try {
+        const usersSnap = await getDocs(collection(db, 'users'));
+        const postsSnap = await getDocs(collection(db, 'posts'));
+        const commentsSnap = await getDocs(collection(db, 'comments'));
+        
+        const usersCount = usersSnap.size;
+        const postsCount = postsSnap.size;
+        const commentsCount = commentsSnap.size;
+        
+        // تحديث الودجات
+        $('widgetUsers').innerText = usersCount;
+        $('widgetPosts').innerText = postsCount;
+        $('widgetComments').innerText = commentsCount;
+        
+        // تحديث لوحة التحكم
+        $('adminUsersCount').innerText = usersCount;
+        $('adminPostsCount').innerText = postsCount;
+        
+        // تحديث النص الإحصائي
+        updateLiveIndicator();
+        
+        // حفظ الإحصائيات مؤقتاً
+        localStorage.setItem('stats', JSON.stringify({
+          users: usersCount,
+          posts: postsCount,
+          comments: commentsCount,
+          updated: new Date().toISOString()
+        }));
+      } catch(err) { 
+        console.error('Error loading stats:', err);
+        // استخدام البيانات المخزنة مؤقتاً
+        const cached = localStorage.getItem('stats');
+        if (cached) {
+          try {
+            const stats = JSON.parse(cached);
+            $('widgetUsers').innerText = stats.users || 0;
+            $('widgetPosts').innerText = stats.posts || 0;
+            $('widgetComments').innerText = stats.comments || 0;
+          } catch(e) {}
+        }
+      }
+    }
+
+    // ==== تحديث الـ Widgets ====
+    function updateWidgets() {
+      $('widgetPosts').innerText = App.posts.length;
+      let likes = 0; 
+      App.posts.forEach(p => likes += (p.likes || 0));
+    }
+
+    // ==== تحميل المنشورات الرائجة ====
+    async function loadTrendingPosts() {
+      try {
+        const q = query(collection(db, 'posts'), orderBy('likes', 'desc'), limit(5));
+        const snap = await getDocs(q);
+        const container = $('trendingPosts');
+        container.innerHTML = '';
+        
+        if (snap.empty) {
+          container.innerHTML = '<div class="small">لا توجد منشورات رائجة</div>';
+          return;
+        }
+        
+        let count = 0;
+        snap.forEach(d => {
+          const post = d.data();
+          count++;
+          
+          const div = document.createElement('div');
+          div.className = 'trending-post';
+          div.onclick = () => {
+            navigateTo('home');
+            setTimeout(() => {
+              const postEl = $(`post-${d.id}`);
+              if (postEl) {
+                postEl.scrollIntoView({ behavior: 'smooth' });
+                postEl.style.boxShadow = '0 0 0 3px var(--primary)';
+                setTimeout(() => {
+                  postEl.style.boxShadow = 'var(--shadow)';
+                }, 2000);
+              }
+            }, 100);
+          };
+          
+          div.innerHTML = `
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="font-weight:600;font-size:13px">${post.authorName || post.author || 'مستخدم'}</div>
+              <div class="small">${post.likes || 0} 👍</div>
+            </div>
+            <div class="small" style="margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
+              ${escapeHTML(post.content || '').substring(0, 60)}...
+            </div>
+          `;
+          
+          container.appendChild(div);
+        });
+      } catch(err) {
+        console.error('Error loading trending posts:', err);
+      }
+    }
+
+    // ==== تحميل ملف المستخدم ====
+    async function loadUserProfile() {
+      if (!App.currentUser) {
+        navigateTo('auth');
+        return;
+      }
+      
+      try {
+        const uRef = doc(db, 'users', App.currentUser.uid);
+        const uDoc = await getDoc(uRef);
+        
+        if (uDoc.exists()) {
+          const userData = uDoc.data();
+          
+          // تحديث المعلومات
+          $('profileName').innerText = userData.fullName || userData.displayName || App.currentUser.email.split('@')[0];
+          $('profileEmail').innerText = App.currentUser.email;
+          $('myPostsCount').innerText = userData.postCount || 0;
+          $('myFriendsCount').innerText = userData.friendCount || 0;
+          $('myLikesCount').innerText = userData.likeCount || 0;
+          
+          // تحديث شارة التوثيق
+          if (userData.verifiedBadge) {
+            $('verifiedBadge').style.display = 'flex';
+            $('profileVerified').style.display = 'inline';
+          }
+          
+          // تحديث رقم الهاتف
+          if (userData.phoneNumber) {
+            $('profilePhone').style.display = 'flex';
+            $('phoneNumberText').innerText = userData.phoneNumber;
+          }
+          
+          // تحديث السيرة الذاتية
+          if (userData.bio) {
+            $('profileBio').innerText = userData.bio;
+          } else {
+            $('profileBio').innerText = 'لا توجد سيرة ذاتية';
+          }
+          
+          // تحديث الموقع
+          if (userData.location) {
+            $('profileLocation').innerText = userData.location;
+          } else {
+            $('profileLocation').innerText = 'لم يتم تحديد الموقع';
+          }
+          
+          // تحميل صورة الملف الشخصي
+          if (userData.profileImage) {
+            const avatar = $('profileAvatar');
+            if (avatar) {
+              const img = document.createElement('img');
+              img.src = userData.profileImage;
+              img.alt = userData.fullName || 'صورة المستخدم';
+              avatar.innerHTML = '';
+              avatar.appendChild(img);
+              
+              if (userData.verifiedBadge) {
+                const badge = document.createElement('div');
+                badge.className = 'verified-badge';
+                badge.innerHTML = '<i class="fa-solid fa-check"></i>';
+                avatar.appendChild(badge);
+              }
+            }
+          }
+          
+          // تحميل منشورات المستخدم
+          loadUserPosts(App.currentUser.uid);
+        }
+      } catch(err) {
+        console.error('Error loading user profile:', err);
+        toast('حدث خطأ في تحميل الملف الشخصي', 'error');
+      }
+    }
+
+    // ==== تحميل منشورات المستخدم ====
+    async function loadUserPosts(userId) {
+      try {
+        const q = query(
+          collection(db, 'posts'), 
+          where('authorId', '==', userId),
+          orderBy('timestamp', 'desc'),
+          limit(20)
+        );
+        
+        const snap = await getDocs(q);
+        const container = $('myPosts');
+        container.innerHTML = '';
+        
+        if (snap.empty) {
+          container.innerHTML = `
+            <div style="text-align:center;padding:40px 20px;color:var(--muted)">
+              <i class="fa-regular fa-newspaper" style="font-size:32px;margin-bottom:12px;opacity:0.5"></i>
+              <div>لم تقم بنشر أي منشورات بعد</div>
+            </div>
+          `;
+        } else {
+          snap.forEach(d => {
+            const post = { id: d.id, ...d.data() };
+            
+            const div = document.createElement('div');
+            div.className = 'post';
+            div.style.marginBottom = '16px';
+            
+            const time = post.timestamp && post.timestamp.toDate ? 
+              formatTimeAgo(post.timestamp.toDate()) : 'الآن';
+            
+            const content = escapeHTML(post.content || '').substring(0, 150);
+            
+            div.innerHTML = `
+              <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                <div style="font-weight:600;flex:1">${content}${post.content.length > 150 ? '...' : ''}</div>
+                <div class="small" style="color:var(--muted-light)">${time}</div>
+              </div>
+              ${post.imageUrl ? `
+                <img src="${post.imageUrl}" style="width:100%;max-height:200px;object-fit:cover;border-radius:var(--radius-sm);margin-top:8px" alt="صورة المنشور">
+              ` : ''}
+              <div class="small" style="margin-top:12px;display:flex;gap:12px">
+                <span><i class="fa-solid fa-thumbs-up"></i> ${post.likes || 0}</span>
+                <span><i class="fa-solid fa-comment"></i> ${post.comments || 0}</span>
+                <span><i class="fa-solid fa-share"></i> ${post.shares || 0}</span>
+              </div>
+            `;
+            container.appendChild(div);
+          });
+        }
+      } catch(err) {
+        console.error('Error loading user posts:', err);
+        $('myPosts').innerHTML = `
+          <div style="text-align:center;padding:40px 20px;color:var(--muted)">
+            <div>حدث خطأ في تحميل المنشورات</div>
+          </div>
+        `;
+      }
+    }
+
+    // ==== فتح مودال تعديل الملف ====
+    function openProfileModal() {
+      if (!App.currentUser) {
+        navigateTo('auth');
+        return;
+      }
+      
+      // تحميل بيانات المستخدم الحالية
+      const userRef = doc(db, 'users', App.currentUser.uid);
+      getDoc(userRef).then(doc => {
+        if (doc.exists()) {
+          const userData = doc.data();
+          
+          $('editFullName').value = userData.fullName || userData.displayName || '';
+          $('editPhoneNumber').value = userData.phoneNumber || '';
+          $('editBio').value = userData.bio || '';
+          $('editLocation').value = userData.location || '';
+          
+          // تحديث معاينة الصورة
+          if (userData.profileImage) {
+            $('profileImagePreview').innerHTML = `<img src="${userData.profileImage}" alt="صورة الملف الشخصي">`;
+            $('profileImageText').style.display = 'none';
+          } else {
+            $('profileImagePreview').innerHTML = '<span id="profileImageText">' + (userData.fullName?.charAt(0) || userData.displayName?.charAt(0) || 'U') + '</span>';
+            $('profileImageText').style.display = 'flex';
+          }
+        }
+      });
+      
+      $('profileModal').classList.add('active');
+    }
+
+    // ==== إغلاق مودال تعديل الملف ====
+    function closeProfileModal() {
+      $('profileModal').classList.remove('active');
+    }
+
+    // ==== معاينة صورة الملف الشخصي ====
+    function previewProfileImage(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      
+      // تحقق من نوع الملف
+      if (!file.type.match('image.*')) {
+        toast('الرجاء اختيار ملف صورة', 'error');
+        return;
+      }
+      
+      // تحقق من حجم الملف (2MB كحد أقصى)
+      if (file.size > 2 * 1024 * 1024) {
+        toast('حجم الصورة كبير جداً (الحد الأقصى 2MB)', 'error');
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        $('profileImagePreview').innerHTML = `<img src="${e.target.result}" alt="صورة الملف الشخصي">`;
+        $('profileImageText').style.display = 'none';
+        App.userProfileImage = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // ==== حفظ تغييرات الملف الشخصي ====
+    async function saveProfileChanges() {
+      if (!App.currentUser) return;
+      
+      const fullName = $('editFullName').value.trim();
+      const phoneNumber = $('editPhoneNumber').value.trim();
+      const bio = $('editBio').value.trim();
+      const location = $('editLocation').value.trim();
+      
+      if (!fullName) {
+        toast('الاسم الكامل مطلوب', 'error');
+        return;
+      }
+      
+      try {
+        const userRef = doc(db, 'users', App.currentUser.uid);
+        const updates = {
+          fullName,
+          phoneNumber,
+          bio,
+          location,
+          updatedAt: new Date()
+        };
+        
+        // تحديث الاسم في Authentication
+        await updateProfile(App.currentUser, {
+          displayName: fullName
+        });
+        
+        // تحديث البيانات في Firestore
+        await updateDoc(userRef, updates);
+        
+        // إغلاق المودال
+        closeProfileModal();
+        
+        // تحديث واجهة المستخدم
+        loadUserProfile();
+        updateUserUI(App.currentUser);
+        
+        toast('تم حفظ التغييرات بنجاح', 'success');
+      } catch(err) {
+        console.error('Error updating profile:', err);
+        toast('حدث خطأ أثناء حفظ التغييرات', 'error');
+      }
+    }
+
+    // ==== التحقق من صلاحيات المدير ====
+    function checkAdminAccess() {
+      if (!App.currentUser) {
+        toast('يجب تسجيل الدخول أولاً', 'error');
+        navigateTo('auth');
+        return false;
+      }
+      
+      if (App.currentUser.email !== 'fares@admin.com') {
+        toast('ليس لديك صلاحية الدخول إلى لوحة التحكم', 'error');
+        navigateTo('home');
+        return false;
+      }
+      
+      return true;
+    }
+
+    // ==== تحميل جميع المستخدمين (للمدير) ====
+    async function loadAllUsers() {
+      if (!checkAdminAccess()) return;
+      
+      try {
+        const snap = await getDocs(collection(db, 'users'));
+        const container = $('usersTable'); 
+        container.innerHTML = '';
+        
+        if (snap.empty) {
+          container.innerHTML = '<div class="small">لا يوجد مستخدمين</div>';
+          return;
+        }
+        
+        let html = `
+          <div style="overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse">
+              <thead>
+                <tr style="background:var(--hover-bg);text-align:right">
+                  <th style="padding:12px;border-bottom:1px solid var(--border)">المستخدم</th>
+                  <th style="padding:12px;border-bottom:1px solid var(--border)">البريد</th>
+                  <th style="padding:12px;border-bottom:1px solid var(--border)">الحالة</th>
+                  <th style="padding:12px;border-bottom:1px solid var(--border)">الإجراءات</th>
+                </tr>
+              </thead>
+              <tbody>
+        `;
+        
+        snap.forEach(d => {
+          const u = d.data();
+          const isOnline = u.isOnline && (new Date() - new Date(u.lastSeen?.toDate ? u.lastSeen.toDate() : u.lastSeen)) < 300000;
+          
+          html += `
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:12px;text-align:right">
+                <div style="display:flex;align-items:center;gap:8px">
+                  ${u.fullName || u.displayName || '—'}
+                  ${u.isAdmin ? '<span style="font-size:10px;background:var(--primary);color:white;padding:2px 6px;border-radius:4px">مدير</span>' : ''}
+                  ${u.verifiedBadge ? '<span style="font-size:10px;background:var(--verified-blue);color:white;padding:2px 6px;border-radius:4px">موثق</span>' : ''}
+                </div>
+              </td>
+              <td style="padding:12px">${u.email}</td>
+              <td style="padding:12px">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <span class="online-dot ${isOnline ? '' : 'offline'}" style="background:${isOnline ? 'var(--success)' : 'var(--danger)'}"></span>
+                  <span class="small">${isOnline ? 'متصل' : 'غير متصل'}</span>
+                </div>
+              </td>
+              <td style="padding:12px">
+                <div style="display:flex;gap:6px;flex-wrap:wrap">
+                  <button class="btn ghost small" onclick="toggleUserVerify('${d.id}', ${!u.verifiedBadge})">
+                    ${u.verifiedBadge ? 'إلغاء التوثيق' : 'توثيق'}
+                  </button>
+                  ${u.email !== App.currentUser.email ? `
+                    <button class="btn danger small" onclick="deleteUser('${d.id}')">حذف</button>
+                  ` : ''}
+                </div>
+              </td>
+            </tr>
+          `;
+        });
+        
+        html += `
+              </tbody>
+            </table>
+          </div>
+        `;
+        
+        container.innerHTML = html;
+        toast('تم تحميل قائمة المستخدمين', 'success');
+      } catch(err) { 
+        console.error('Error loading users:', err);
+        toast('حدث خطأ في تحميل المستخدمين', 'error'); 
+      }
+    }
+
+    // ==== توثيق/إلغاء توثيق المستخدم ====
+    async function toggleUserVerify(userId, verify) {
+      if (!checkAdminAccess()) return;
+      
+      try {
+        await updateDoc(doc(db, 'users', userId), { 
+          verifiedBadge: verify,
+          isVerified: verify
+        });
+        toast(`تم ${verify ? 'توثيق' : 'إلغاء توثيق'} المستخدم`, 'success');
+        loadAllUsers();
+      } catch(err) { 
+        console.error('Error toggling verification:', err);
+        toast('حدث خطأ أثناء التحديث', 'error'); 
+      }
+    }
+
+    // ==== التحقق من المستخدمين ====
+    async function verifyUsers() {
+      if (!checkAdminAccess()) return;
+      
+      toast('جاري تحميل قائمة المستخدمين للتحقق...', 'info');
+      loadAllUsers();
+    }
+
+    // ==== تحميل التقارير ====
+    async function loadReports() {
+      if (!checkAdminAccess()) return;
+      
+      try {
+        const q = query(collection(db, 'reports'), orderBy('timestamp', 'desc'), limit(50));
+        const snap = await getDocs(q);
+        $('adminReportsCount').innerText = snap.size;
+        
+        toast(`تم تحميل ${snap.size} تقرير`, 'success');
+      } catch(err) { 
+        console.error('Error loading reports:', err);
+        toast('حدث خطأ في تحميل التقارير', 'error'); 
+      }
+    }
+
+    // ==== حذف المستخدم ====
+    async function deleteUser(userId) {
+      if (!checkAdminAccess() || !confirm('هل أنت متأكد من حذف هذا المستخدم؟ سيتم حذف جميع محتوياته.')) return;
+      
+      try {
+        // حذف المستخدم
+        await deleteDoc(doc(db, 'users', userId));
+        
+        toast('تم حذف المستخدم', 'success');
+        loadAllUsers();
+      } catch(err) {
+        console.error('Error deleting user:', err);
+        toast('حدث خطأ أثناء حذف المستخدم', 'error');
+      }
+    }
+
+    // ==== تحميل القصص ====
+    async function loadStories() {
+      try {
+        const q = query(collection(db, 'posts'), where('hasImage', '==', true), orderBy('timestamp', 'desc'), limit(10));
+        const snap = await getDocs(q);
+        const container = $('storiesContainer');
+        container.innerHTML = '';
+        
+        // إضافة قصة جديدة
+        const addStory = document.createElement('div');
+        addStory.className = 'story add-story';
+        addStory.innerHTML = `
+          <div class="add-story-icon">
+            <i class="fa-solid fa-plus"></i>
+          </div>
+          <div style="font-weight: 600; color: var(--primary);">أضف قصتك</div>
+        `;
+        addStory.onclick = () => {
+          toast('ميزة القصص قيد التطوير', 'info');
+        };
+        container.appendChild(addStory);
+        
+        // إضافة قصص المستخدمين
+        snap.forEach(d => {
+          const post = d.data();
+          if (post.imageUrl) {
+            const story = document.createElement('div');
+            story.className = 'story';
+            story.innerHTML = `
+              <img src="${post.imageUrl}" class="story-image" alt="قصة">
+              <div class="story-overlay">
+                <div class="story-author">${post.authorName || post.author || 'مستخدم'}</div>
+              </div>
+            `;
+            story.onclick = () => {
+              toast('عرض القصة', 'info');
+            };
+            container.appendChild(story);
+          }
+        });
+      } catch(err) {
+        console.error('Error loading stories:', err);
+      }
+    }
+
+    // ==== عرض كل القصص ====
+    function viewAllStories() {
+      toast('عرض جميع القصص', 'info');
+    }
+
+    // ==== تحميل الأصدقاء ====
+    async function loadFriends() {
+      if (!App.currentUser) {
+        $('friendsContainer').innerHTML = `
+          <div style="text-align:center;padding:60px 20px;color:var(--muted)">
+            <i class="fa-solid fa-lock" style="font-size:48px;margin-bottom:16px;opacity:0.5"></i>
+            <div>سجل دخول لترى أصدقاءك</div>
+          </div>
+        `;
+        return;
+      }
+      
+      $('friendsContainer').innerHTML = `
+        <div style="text-align:center;padding:60px 20px;color:var(--muted)">
+          <i class="fa-solid fa-user-group" style="font-size:48px;margin-bottom:16px;opacity:0.5"></i>
+          <div>ميزة الأصدقاء قيد التطوير</div>
+          <div class="small" style="margin-top:8px">ستتوفر قريباً</div>
+        </div>
+      `;
+    }
+
+    // ==== تحميل المجموعات ====
+    async function loadGroups() {
+      $('groupsContainer').innerHTML = `
+        <div style="text-align:center;padding:60px 20px;color:var(--muted)">
+          <i class="fa-solid fa-users" style="font-size:48px;margin-bottom:16px;opacity:0.5"></i>
+          <div>انضم إلى مجموعات لتشارك اهتماماتك</div>
+          <button class="btn primary" style="margin-top: 20px;" onclick="createGroup()">
+            <i class="fa-solid fa-plus"></i> إنشاء مجموعة جديدة
+          </button>
+        </div>
+      `;
+    }
+
+    // ==== إنشاء مجموعة ====
+    function createGroup() {
+      const groupName = prompt('أدخل اسم المجموعة:');
+      if (groupName) {
+        toast(`تم إنشاء المجموعة "${groupName}"`, 'success');
+      }
+    }
+
+    // ==== تحميل الأصدقاء المقترحين ====
+    async function loadSuggestedFriends() {
+      if (!App.currentUser) return;
+      
+      try {
+        const q = query(collection(db, 'users'), limit(5));
+        const snap = await getDocs(q);
+        const container = $('suggestedFriends');
+        container.innerHTML = '';
+        
+        snap.forEach(d => {
+          const user = d.data();
+          if (user.email !== App.currentUser.email) {
+            const div = document.createElement('div');
+            div.style.display = 'flex';
+            div.style.alignItems = 'center';
+            div.style.gap = '12px';
+            div.style.padding = '12px';
+            div.style.marginBottom = '8px';
+            div.style.background = 'var(--hover-bg)';
+            div.style.borderRadius = 'var(--radius-sm)';
+            
+            div.innerHTML = `
+              <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg, var(--primary), var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-weight:bold">
+                ${user.displayName?.charAt(0) || user.email?.charAt(0) || 'U'}
+              </div>
+              <div style="flex:1">
+                <div style="font-weight:600;font-size:14px">${user.fullName || user.displayName || user.email.split('@')[0]}</div>
+                <div class="small">${user.email}</div>
+              </div>
+              <button class="btn primary small" style="padding:6px 12px">إضافة</button>
+            `;
+            
+            container.appendChild(div);
+          }
+        });
+      } catch(err) {
+        console.error('Error loading suggested friends:', err);
+      }
+    }
+
+    // ==== البحث ====
+    function onSearchInput(e) {
+      const val = e.target.value.trim().toLowerCase();
+      
+      if (!val) { 
+        // عرض كل المنشورات
+        $('postsList').innerHTML = ''; 
+        App.posts.forEach(p => $('postsList').appendChild(renderPostCard(p))); 
+        return;
+      }
+      
+      const filtered = App.posts.filter(p => 
+        (p.content || '').toLowerCase().includes(val) || 
+        (p.authorName || p.author || '').toLowerCase().includes(val)
+      );
+      
+      $('postsList').innerHTML = '';
+      
+      if (filtered.length === 0) {
+        $('postsList').innerHTML = `
+          <div style="text-align:center;padding:60px 20px;color:var(--muted)">
+            <i class="fa-solid fa-search" style="font-size:48px;margin-bottom:16px;opacity:0.5"></i>
+            <div>لا توجد نتائج لـ "${escapeHTML(val)}"</div>
+          </div>
+        `;
+      } else {
+        filtered.forEach(p => $('postsList').appendChild(renderPostCard(p)));
+        toast(`تم العثور على ${filtered.length} نتيجة`, 'info', 2000);
+      }
+    }
+
+    // ==== تحميل الإشعارات ====
+    async function loadNotifications() {
+      if (!App.currentUser) return;
+      
+      try {
+        const notifications = [
+          {
+            id: 1,
+            title: 'مرحباً بك في المنصة!',
+            message: 'يمكنك الآن البدء بمشاركة أفكارك مع الآخرين.',
+            type: 'info',
+            read: false,
+            time: new Date()
+          }
+        ];
+        
+        // إضافة إشعار خاص للمدير
+        if (App.currentUser.email === 'fares@admin.com') {
+          notifications.push({
+            id: 2,
+            title: 'صلاحيات المدير مفعلة',
+            message: 'يمكنك الآن إدارة المستخدمين والمنشورات والتقارير.',
+            type: 'info',
+            read: false,
+            time: new Date()
+          });
+        }
+        
+        App.notifications = notifications;
+        updateNotificationsUI();
+      } catch(err) {
+        console.error('Error loading notifications:', err);
+      }
+    }
+
+    // ==== تحديث واجهة الإشعارات ====
+    function updateNotificationsUI() {
+      const container = $('notifPreview');
+      
+      if (App.notifications.length === 0) {
+        container.innerHTML = '<div class="small">لا توجد إشعارات</div>';
+        return;
+      }
+      
+      const unreadCount = App.notifications.filter(n => !n.read).length;
+      container.innerHTML = '';
+      
+      App.notifications.slice(0, 3).forEach(notif => {
+        const div = document.createElement('div');
+        div.className = `notification ${notif.read ? '' : 'unread'}`;
+        div.innerHTML = `
+          <div style="font-weight:600;margin-bottom:4px">${notif.title}</div>
+          <div class="small">${notif.message}</div>
+          <div class="small" style="margin-top:6px;color:var(--muted-light)">
+            ${new Date(notif.time).toLocaleTimeString('ar-SA', {hour: '2-digit', minute:'2-digit'})}
+          </div>
+        `;
+        container.appendChild(div);
+      });
+      
+      if (unreadCount > 3) {
+        const moreDiv = document.createElement('div');
+        moreDiv.className = 'small';
+        moreDiv.style.textAlign = 'center';
+        moreDiv.style.marginTop = '8px';
+        moreDiv.innerText = `+${unreadCount - 3} إشعارات غير مقروءة`;
+        container.appendChild(moreDiv);
+      }
+    }
+
+    // ==== تعيين جميع الإشعارات كمقروءة ====
+    function markAllNotificationsAsRead() {
+      App.notifications.forEach(n => n.read = true);
+      updateNotificationsUI();
+      toast('تم تعيين جميع الإشعارات كمقروءة', 'success');
+    }
+
+    // ==== Helper functions ====
+    function escapeHTML(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function showCreate() { 
+      navigateTo('home'); 
+      window.scrollTo({top:0,behavior:'smooth'}); 
+      $('postText').focus(); 
+    }
+
+    // ==== التهيئة عند التحميل ====
+    window.addEventListener('load', initApp);
+
+    // جعل الدوال متاحة عالمياً
+    window.navigateTo = navigateTo;
+    window.showCreate = showCreate;
+    window.login = login;
+    window.signup = signup;
+    window.logout = logout;
+    window.createPost = createPost;
+    window.toggleLike = toggleLike;
+    window.sharePost = sharePost;
+    window.addComment = addComment;
+    window.toggleComments = toggleComments;
+    window.deleteComment = deleteComment;
+    window.deletePost = deletePost;
+    window.loadAllUsers = loadAllUsers;
+    window.loadReports = loadReports;
+    window.verifyUsers = verifyUsers;
+    window.toggleUserVerify = toggleUserVerify;
+    window.deleteUser = deleteUser;
+    window.onSearchInput = onSearchInput;
+    window.fillAdminCredentials = fillAdminCredentials;
+    window.fillUserCredentials = fillUserCredentials;
+    window.toggleDarkMode = toggleDarkMode;
+    window.markAllNotificationsAsRead = markAllNotificationsAsRead;
+    window.loadPosts = loadPosts;
+    window.openProfileModal = openProfileModal;
+    window.closeProfileModal = closeProfileModal;
+    window.saveProfileChanges = saveProfileChanges;
+    window.previewProfileImage = previewProfileImage;
+    window.openImageModal = openImageModal;
+    window.closeImageModal = closeImageModal;
+    window.previewPostImage = previewPostImage;
+    window.confirmPostImage = confirmPostImage;
+    window.removeSelectedImage = removeSelectedImage;
+    window.addEmoji = addEmoji;
+    window.tagFriends = tagFriends;
+    window.addFeeling = addFeeling;
+    window.showEmojiPicker = addEmoji;
+    window.viewAllStories = viewAllStories;
+    window.createGroup = createGroup;
+    window.loadFriends = loadFriends;
+    window.loadGroups = loadGroups;
+    
+    // ==== الإضافة إلى كائن التطبيق ====
+    window.App = App;
+
+  </script>
+</body>
+</html>
